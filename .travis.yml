@@ -1,5 +1,5 @@
 language: python
-rvm: # specify version 
+python: # specify version 
   - "3.6.4"
 install: # specify dependencies
   - pip install -r pygame
