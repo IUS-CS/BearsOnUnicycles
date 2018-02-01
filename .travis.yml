@@ -6,4 +6,5 @@ before_install: # update the package manager and install pygame
     - sudo apt-get build-dep -qq python-pygame
     - sudo apt-get install -qq python-pygame 
 script: # specify default build script
-  - pytest
+  - Travis-CI/test.python
+  
