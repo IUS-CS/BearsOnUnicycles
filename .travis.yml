@@ -1,4 +1,4 @@
 language: python
 rvm:
-- python3.6.4
+- 3.6.4
 - pygame
