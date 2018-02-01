@@ -1,6 +1,6 @@
 language: python
 python: # specify version 
-  - "3.6.4"
+  - "3.6"
 install: # specify dependencies
   - pip install -r pygame
 script: # specify default build script
