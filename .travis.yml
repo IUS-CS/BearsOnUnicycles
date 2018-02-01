@@ -1,4 +1,7 @@
 language: python
-rvm:
-- 3.6.4
-- pygame
+rvm: # specify version 
+  - "3.6.4"
+install: # specify dependencies
+  - pip install -r pygame
+script: # specify default build script
+  - pytest
