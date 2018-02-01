@@ -5,7 +5,5 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get build-dep -qq python-pygame
     - sudo apt-get install -qq python-pygame 
-install: # specify dependencies
-  - pip install -r pygame
 script: # specify default build script
   - pytest
