@@ -2,16 +2,7 @@
 # Author: Ben Heil
 # Since: 2/2/18
 
-from Level import Level
-import pygame
+# We need to modularize the code in such a way that our unit tests are testing OUR code and not pygame's code
 
 
-def test_Level_init():
-    lvl = Level()
-    assert lvl.walking == False
-    assert lvl.kick == False
-
-def test_Level_run():
-    lvl = Level()
-    assert lvl.run() == 0
 
