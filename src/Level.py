@@ -1,6 +1,6 @@
 import os
 import pygame
-from Sprite import Sprite #import Sprite class
+from Sprite import Sprite
 import itertools
 
 class Level(object):
@@ -60,7 +60,7 @@ class Level(object):
                     done = True
 
             #Handles animations currently. Will probably change eventually
-            self.handleEvents()
+            self.handleEvents(pygame.key.get_pressed())
 
             #FPS setting. 60 makesthe character look like the Energizer Bunny on coffee
             pygame.time.Clock().tick(15)
@@ -76,12 +76,9 @@ class Level(object):
             pygame.display.update()
 
     #Currently handles animations
-    def handleEvents(self):
+    def handleEvents(self, pressed):
         #Default animation state.
         move = 'idle'
-
-        #Get what key is pressed on the keyboard.
-        pressed = pygame.key.get_pressed()
 
         #If left arrow pressed. Can be K_a for WASD movement on a QWERTY keyboard
         if pressed[pygame.K_LEFT]:
@@ -139,4 +136,4 @@ class Level(object):
 
                 #itertools iterates through each item in the list corresponding to 'idle'
                 self.sprite = itertools.cycle(self.sprites['idle'])
-
+        return move
