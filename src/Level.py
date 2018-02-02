@@ -58,6 +58,7 @@ class Level(object):
                 #Called when quit button pressed
                 if event.type == pygame.QUIT:
                     done = True
+                    return 0
 
             #Handles animations currently. Will probably change eventually
             self.handleEvents(pygame.key.get_pressed())
@@ -74,6 +75,7 @@ class Level(object):
 
             #Display doesn't show anything without this line.
             pygame.display.update()
+        return 1
 
     #Currently handles animations
     def handleEvents(self, pressed):
