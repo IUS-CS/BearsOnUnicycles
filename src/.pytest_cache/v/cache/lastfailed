@@ -1,0 +1,5 @@
+{
+  "proto_test.py::test_Level": true,
+  "proto_test.py::test_Level_handleEvent_Key_Left": true,
+  "proto_test.py::test_Level_handleEvents_Key_Left": true
+}
