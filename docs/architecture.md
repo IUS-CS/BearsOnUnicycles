@@ -1,14 +1,15 @@
-#Super Ultra Melees of History
-###Software Architecture Document
+# Super Ultra Melees of History
+
+### Software Architecture Document
 Version 0.1 (Draft)
 
-##Revision History
+## Revision History
 
 | Date    | Version   | Description   | Author   |
 |:-------:|:---------:|:-------------:|:--------:|
 | 2/22/18 | .01       | First Draft   | Ben Heil | 
 
-##Table of Contents
+## Table of Contents
 
 1. Introduction
     
