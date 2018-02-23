@@ -1,8 +1,7 @@
 from Sprite import Sprite
 import itertools
+import Config
 
-MSPEED = 9
-KICKMOVE = 0
 
 class Animator(object):
 
@@ -35,21 +34,21 @@ class Animator(object):
     # Returns our kickmove, which is currently just zero
     def selfKick(self):
         self.sprite = itertools.cycle(self.sprites['kick'])
-        return KICKMOVE
+        return Config.KICKMOVE
 
     # Performs walk left animation
     # Returns negated MSPEED, which is a positive 9
     # This was the initial movement value, now contained in a variable
     def walkLeft(self):
         self.sprite = itertools.cycle(self.sprites['walking'])
-        return -MSPEED
+        return -Config.MSPEED
 
     # Performs walk left animation
     # Returns MSPEED, which is a positive 9
     # This was the initial movement value, now contained in a variable
     def walkRight(self):
         self.sprite = itertools.cycle(self.sprites['walking'])
-        return MSPEED
+        return Config.MSPEED
 
     # Performs idle animation
     # Returns IDLEMOVE, which is zero
