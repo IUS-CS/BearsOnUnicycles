@@ -1,7 +1,9 @@
 import os
 import pygame
 from Sprite import Sprite
+
 from Animator import Animator
+
 import itertools
 
 class Level(object):
@@ -38,8 +40,14 @@ class Level(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
+                    return 0
+
 
             self.handleEvents()
+
+
+            #FPS setting. 60 makesthe character look like the Energizer Bunny on coffee
+
             pygame.time.Clock().tick(15)
             self.screen.blit(self.background, (0, 0))
 
@@ -47,6 +55,8 @@ class Level(object):
             #self.p1left doesn't work for the destination tuple, and the animation won't play
             self.screen.blit(self.animator.idle().__next__(), (325, 325)) #just testing Idle animation currently
             pygame.display.update()
+        return 1
+
 
 
     def handleEvents(self):
@@ -63,3 +73,4 @@ class Level(object):
 
         #As long as p1left isn't empty return true.
         #Going to check python docs on the syntax for this
+
