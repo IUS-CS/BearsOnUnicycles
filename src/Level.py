@@ -1,7 +1,7 @@
 import os
 import pygame
 from Sprite import Sprite
-
+import Config
 from Animator import Animator
 
 import itertools
@@ -9,7 +9,7 @@ import itertools
 class Level(object):
 
     # global window size
-    SIZE = (900, 650)
+
 
     def __init__(self):
         pygame.init()
@@ -21,12 +21,12 @@ class Level(object):
         self.setupStates()
 
     def setupScreen(self):
-        self.screen = pygame.display.set_mode(self.SIZE)
+        self.screen = pygame.display.set_mode(Config.SIZE)
         return True
 
     def setupBackground(self, path): #Need to look up exceptions for image loading to return T or F
         image = pygame.image.load(path + '/resources/levels/mongoliaTent.bmp').convert()
-        self.background = pygame.transform.scale(image, self.SIZE)
+        self.background = pygame.transform.scale(image, Config.SIZE)
 
     def setupStates(self):
         self.animator = Animator()
@@ -48,7 +48,7 @@ class Level(object):
 
             #FPS setting. 60 makesthe character look like the Energizer Bunny on coffee
 
-            pygame.time.Clock().tick(15)
+            pygame.time.Clock().tick(Config.CLOCK_SPEED)
             self.screen.blit(self.background, (0, 0))
 
             #This stupid blit is broken and I don't know why.
