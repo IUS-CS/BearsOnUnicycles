@@ -1,13 +1,13 @@
 import pygame
-pygame.init()  # turn all of pygame on.
+pygame.init()
 pygame.display.set_mode()
-from Level import Level
+from ObjectHandler import ObjectHandler
 from SplashScreen import SplashScreen
 
+Splash = SplashScreen().setupScreen()
 
 if __name__ == '__main__':
-    #Splash = SplashScreen().setupScreen()
-    #pygame.time.wait(8000)
-    level = Level()
-    level.run()
+
+    objectHandler = ObjectHandler()
+    objectHandler.run()
     pygame.quit()

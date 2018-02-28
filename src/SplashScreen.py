@@ -1,5 +1,5 @@
 import pygame
-import Config
+import constants as c
 import time
 
 
@@ -15,11 +15,9 @@ class SplashScreen(object):
         self.setupScreen()
 
     def setupScreen(self):
-        self.screen = pygame.display.set_mode(Config.SIZE)
+        self.screen = pygame.display.set_mode(c._SIZE_)
         self.screen.blit(image, (0, 0))
         return True
-
-
 
     def run(self):
         start_time = pygame.time.get_ticks();
