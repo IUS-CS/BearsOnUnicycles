@@ -48,8 +48,5 @@ class GameObject:
         raise GameObjectError(COMPONENT_NOT_FOUND)
 
 
-go = GameObject("Ben", set_active=True)
-t = transform.Transform(x=45, y=100)
-go.add_component(t)
-print(go)
+
 
