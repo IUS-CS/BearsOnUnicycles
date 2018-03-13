@@ -6,11 +6,11 @@ import os
 import pygame
 import input_handler as ih
 
-#=================================================================================
+# =================================================================================
 # Static Variables section
 #
 #
-#=================================================================================
+# =================================================================================
 
 SIZE = (900, 500)
 FPS = 15
@@ -37,7 +37,8 @@ while not quitting:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             quitting = True
-    pygame.time.Clock().tick(FPS)
+    pygame.time.Clock().tick(FPS)  # run at FPS frames per second
+    INPUT.handle_input()  # the input handler is listening
 
 
 

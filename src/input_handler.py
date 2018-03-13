@@ -1,6 +1,7 @@
 # File: input_handler.py
 # Authors: BearsOnUnicycles
 # Since: 3/10/18
+# this file handles all the input from the keyboard
 import pygame
 
 
@@ -73,6 +74,13 @@ class Handler:
         def get_down(self, key):
             return self.keys[key]
 
+        def get_active_keys(self):
+            temp = []
+            for key in self.keys.keys():
+                if self.keys[key]:
+                    temp.append(key)
+            return temp
+
     iHandler = None
 
     def __init__(self):
@@ -81,7 +89,6 @@ class Handler:
         has the same instance'''
         if not Handler.iHandler:
             Handler.iHandler = Handler.__Handler()
-            print(True)
 
     def __str__(self):
         return str(Handler.iHandler)
