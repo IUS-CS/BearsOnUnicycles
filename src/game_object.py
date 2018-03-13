@@ -7,7 +7,6 @@
 import component as ct
 import transform
 
-
 class GameObjectError(Exception):
     pass
 
@@ -27,8 +26,9 @@ class GameObject:
         if set_active:
             self.active = True
 
-   # def __str__(self):
-
+    def __str__(self):
+        return self.name + "\nComponents: " + str([str(c) for c in self.components]) + \
+            "\nActive: " + str(self.active)
 
     def set_active(self, active):
         self.active = active
@@ -46,4 +46,10 @@ class GameObject:
             if type(c) is cType:
                 return c
         raise GameObjectError(COMPONENT_NOT_FOUND)
+
+
+go = GameObject("Ben", set_active=True)
+t = transform.Transform(x=45, y=100)
+go.add_component(t)
+print(go)
 

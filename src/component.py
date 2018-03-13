@@ -12,5 +12,8 @@ class Component:
         if set_active:
             self.active = True
 
+    def __str__(self):
+        return "Component Type: " + str(type(self))
+
     def set_active(self, active):
         self.active = active

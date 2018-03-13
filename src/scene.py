@@ -28,6 +28,10 @@ class Scene:
         if set_active:
             self.active = True
 
+    def __str__(self):
+        return self.title + "\nGame Objects: " + str([str(g) for g in self.game_objects]) + \
+            "Active: " + str(self.active)
+
     def set_active(self, active):
         self.active = active
 
@@ -62,3 +66,5 @@ class Scene:
             if type(g) is oType:
                 temp.append(g)
         return temp
+
+
