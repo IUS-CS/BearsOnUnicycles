@@ -17,3 +17,9 @@ class Component:
 
     def set_active(self, active):
         self.active = active
+
+    def update(self):
+        '''Perform any logic for one frame'''
+        if not self.active:
+            return
+        pass

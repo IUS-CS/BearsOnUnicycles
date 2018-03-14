@@ -8,8 +8,8 @@ import component as ct
 
 class Transform(ct.Component):
 
-    x = 0
-    y = 0
+    x = 0           # The x position of the object relative to its parent
+    y = 0           # The y position of the object relative to its parent
 
     def __init__(self, x=0, y=0):
         super(Transform, self).__init__(set_active=True)

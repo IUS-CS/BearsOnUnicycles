@@ -67,4 +67,9 @@ class Scene:
                 temp.append(g)
         return temp
 
-
+    def update(self):
+        '''perform any logic for one frame on everything
+        in the scene'''
+        if self.active:
+            for g in self.game_objects:
+                g.update()
