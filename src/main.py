@@ -4,7 +4,7 @@
 # This file calls all the main components of the game
 import os
 import pygame
-import input_handler as ih
+from . import input_handler as ih
 
 # =================================================================================
 # Static Variables section

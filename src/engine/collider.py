@@ -4,10 +4,10 @@
 # This file defines the collider classes used in the engine
 
 
-import component as ct
+from . import component as ct
 
 
-class Collider(ct.Componenet):
+class Collider(ct.Component):
 
     lowerP = (0, 0)  # bottom left vertex of the collider
     upperP = (1, 1)  # top right vertex of the collider

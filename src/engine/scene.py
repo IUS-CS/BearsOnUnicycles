@@ -3,7 +3,7 @@
 # Since: 3/10/18
 # This is the template file for all loadable scenes in the game and stores all the game_objects it controls
 
-import game_object as go
+from . import game_object as go
 
 
 class SceneError(Exception):

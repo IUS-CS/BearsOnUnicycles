@@ -7,6 +7,7 @@
 class Component:
 
     active = False          # is the component currently active
+    game_object = None      # the game object this component is attached to
 
     def __init__(self, set_active=False):
         if set_active:
