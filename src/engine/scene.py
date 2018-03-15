@@ -25,11 +25,12 @@ class Scene:
     def __init__(self, title, background, set_active=False):
         self.title = title
         self.background = background
+        self.game_objects = []
         if set_active:
             self.active = True
 
     def __str__(self):
-        return self.title + "\nGame Objects: " + str([str(g) for g in self.game_objects]) + \
+        return self.title + "\nGame Objects: " + str([str(g.name) for g in self.game_objects]) + \
             "Active: " + str(self.active)
 
     def set_active(self, active):

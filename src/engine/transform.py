@@ -15,8 +15,8 @@ class Transform(ct.Component):
 
     def __init__(self, x=0, y=0):
         super(Transform, self).__init__(set_active=True)
-        self.x = x
-        self.y = y
+        self.world_x = self.x = x
+        self.world_y = self.y = y
 
     def __str__(self):
         return super(Transform, self).__str__() + \
@@ -25,5 +25,12 @@ class Transform(ct.Component):
     def update(self):
         '''udate the transform of this
         game object'''
-        self.world_x = self.x + self.game_object.get_component(Transform).x
-        self.world_y = self.y + self.game_object.get_component(Transform).y
+        self.world_x = self.x
+        self.world_y = self.y
+        if self.game_object.parent is not None:
+            temp = self.game_object.parent
+            while temp is not None:
+                self.world_x += temp.get_component(Transform).x
+                self.world_y += temp.get_component(Transform).y
+                temp = temp.parent
+
