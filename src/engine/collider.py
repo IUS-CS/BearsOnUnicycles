@@ -6,16 +6,21 @@
 
 from . import component as ct
 
-
 class Collider(ct.Component):
 
     lowerP = (0, 0)  # bottom left vertex of the collider
     upperP = (1, 1)  # top right vertex of the collider
+    cfunc = None     # a collision function passed by the implementer
+    colliding = False
+    collisions = []
 
-    def __init__(self, lowerP, upperP):
+    def __init__(self, lowerP, upperP, cfunc):
         super(Collider, self).__init__(set_active=True)
         self.lowerP = lowerP
         self.upperP = upperP
+        self.colliding = False
+        self.collisions = []
+        self.cfunc = cfunc
 
     def __str__(self):
         return super.__str__() + "Lower Point: " + str(self.lowerP) + \
@@ -23,6 +28,9 @@ class Collider(ct.Component):
 
     def check_collision(self):
         '''checks to see if colliding with an
-        object'''
-        pass
+        object, decorated function'''
+        self.collisions = self.cfunc(self.game_object)
+        self.colliding = not (len(self.collisions) == 0)
 
+    def update(self):
+        self.check_collision()

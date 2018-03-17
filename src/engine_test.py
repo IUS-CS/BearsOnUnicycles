@@ -1,6 +1,7 @@
 # This file is just a playground to test the engine with
 from src import engine
 
+
 s = engine.scene.Scene("Title", "None", set_active=True)
 g = engine.game_object.GameObject("Name", set_active=True)
 s.add_game_object(g)
@@ -18,11 +19,14 @@ t3 = engine.transform.Transform(x=-1, y=7)
 g3.add_component(t3)
 
 
+coll = engine.collision_manager.CollisionManager(s)
 
+g.add_component(engine.collider.Collider((0, 1), (1, 2), coll.check_collisions))
+g2.add_component(engine.collider.Collider((1, 2), (3, 4), coll.check_collisions))
 
-
+coll.update()
 s.update()
-print(s)
-print(g.get_component(engine.transform.Transform).world_x)
-print(g2.get_component(engine.transform.Transform).world_x)
-print(g3.get_component(engine.transform.Transform).world_x)
+print(g.get_component(engine.collider.Collider).collisions)
+coll.update()
+s.update()
+print(g.get_component(engine.collider.Collider).collisions)
