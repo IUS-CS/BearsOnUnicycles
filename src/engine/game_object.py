@@ -60,6 +60,15 @@ class GameObject:
         child.set_parent(self)
         self.children.append(child)
 
+    def remove_child(self, child):
+        '''removes a child from this
+        game object'''
+        if not isinstance(child, GameObject):
+            raise GameObjectError(CHILD_NOT_GAME_OBJ)
+        if child not in self.children:
+            raise GameObjectError(CHILD_NOT_FOUND)
+        self.children.remove(child)
+
     def get_child_by_name(self, name):
         '''Gets a game objects child by name'''
         for child in self.children:

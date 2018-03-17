@@ -36,6 +36,17 @@ class TestGameObject(TestCase):
         g.add_child(g2)
         assert g2.parent is g
 
+    def test_remove_child(self):
+        g = game_object.GameObject("Test1")
+        g2 = game_object.GameObject("Test2")
+        g.add_child(g2)
+        g.remove_child(g2)
+        try:
+            g.remove_child(g2)
+            assert False
+        except game_object.GameObjectError:
+            assert True
+
     def test_get_child_by_name(self):
         g = game_object.GameObject("Test1")
         g2 = game_object.GameObject("Test2")
