@@ -7,7 +7,7 @@
 from . import component as ct
 
 
-class GameObjectError(Exception):
+class GameObjectError(BaseException):
     pass
 
 
