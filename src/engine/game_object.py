@@ -68,6 +68,7 @@ class GameObject:
         if child not in self.children:
             raise GameObjectError(CHILD_NOT_FOUND)
         self.children.remove(child)
+        child.parent = None
 
     def get_child_by_name(self, name):
         '''Gets a game objects child by name'''

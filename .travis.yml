@@ -11,5 +11,5 @@ notifications: # prevent Travis-CI from flooding my inbox
   email:
     on_success: change # when a build changes from broken to fixed
     on_failure: change # when a build changes from working to broken
-script: # specify default build script (Unit test files go here as well)
+script: # specify test script
   - pytest
