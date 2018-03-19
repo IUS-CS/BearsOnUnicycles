@@ -48,6 +48,7 @@ class Scene:
         for g in self.game_objects:
             if g.name == name:
                 self.game_objects.remove(g)
+                return
         raise SceneError(OBJ_NOT_FOUND)
 
     def get_object_by_name(self, name):

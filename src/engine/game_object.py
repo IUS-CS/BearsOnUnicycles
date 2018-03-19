@@ -5,14 +5,16 @@
 
 
 from . import component as ct
+from . import transform
 
 
-class GameObjectError(Exception):
+class GameObjectError(BaseException):
     pass
 
 
 NOT_COMPONENT = "The component attempted to add does not inherit from component.Component!"
 COMPONENT_NOT_FOUND = "The component does not exist or was not added to the game object!"
+OVERLOADED_COMPONENT = "This game object already has the specified component!"
 CHILD_NOT_FOUND = "The child does not exist or was not added to this game object!"
 TRANSFORM_NOT_FOUND = "This object does not have a transform and cannot update!"
 PARENT_NOT_GAME_OBJ = "The parent attempted to add is not a Game Object!"
@@ -60,6 +62,16 @@ class GameObject:
         child.set_parent(self)
         self.children.append(child)
 
+    def remove_child(self, child):
+        '''removes a child from this
+        game object'''
+        if not isinstance(child, GameObject):
+            raise GameObjectError(CHILD_NOT_GAME_OBJ)
+        if child not in self.children:
+            raise GameObjectError(CHILD_NOT_FOUND)
+        self.children.remove(child)
+        child.parent = None
+
     def get_child_by_name(self, name):
         '''Gets a game objects child by name'''
         for child in self.children:
@@ -77,6 +89,8 @@ class GameObject:
 
     def add_component(self, component):
         '''adds a component to the game object'''
+        if self.has_component(type(component)):
+            raise GameObjectError(OVERLOADED_COMPONENT)
         if not isinstance(component, ct.Component):
             raise GameObjectError(NOT_COMPONENT)
         component.game_object = self
@@ -100,7 +114,9 @@ class GameObject:
 
     def update(self):
         '''perform any logic on every child and component
-        for one frame'''
+        for one frame REQUIRES TRANSFORM'''
+        if self.has_component(transform.Transform) is False:
+            raise GameObjectError(TRANSFORM_NOT_FOUND)
         if self.active:
             for c in self.children:
                 c.update()
