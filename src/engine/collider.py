@@ -6,6 +6,8 @@
 
 from . import component as ct
 
+# TODO: scale collider with transform.Transform.scale
+
 
 class Collider(ct.Component):
 

@@ -20,13 +20,11 @@ g3.add_component(t3)
 
 
 coll = engine.collision_manager.CollisionManager(s)
+rend = engine.sprite_renderer.SpriteRenderer(s)
 
-g.add_component(engine.collider.Collider((0, 1), (1, 2), coll.check_collisions))
-g2.add_component(engine.collider.Collider((1, 2), (3, 4), coll.check_collisions))
+g.add_component(engine.sprite.Sprite("resources/chun-li.gif", (0, 0), (256, 256)))
 
-coll.update()
-s.update()
-print(g.get_component(engine.collider.Collider).collisions)
-coll.update()
-s.update()
-print(g.get_component(engine.collider.Collider).collisions)
+g.update()
+
+
+

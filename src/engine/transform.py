@@ -12,11 +12,13 @@ class Transform(ct.Component):
     y = 0           # The y position of the object relative to its parent
     world_x = 0     # The world x position of this game object
     world_y = 0     # The world x position of this game object
+    scale = 1       # The scale of this game object
 
-    def __init__(self, x=0, y=0):
+    def __init__(self, x=0, y=0, scale=1):
         super(Transform, self).__init__(set_active=True)
         self.world_x = self.x = x
         self.world_y = self.y = y
+        self.scale = scale
 
     def __str__(self):
         return super(Transform, self).__str__() + \
