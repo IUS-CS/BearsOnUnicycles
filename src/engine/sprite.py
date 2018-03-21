@@ -23,3 +23,10 @@ class Sprite(ct.Component):
     def __str__(self):
         return "Sprite located at " + str(self.coords) + \
             " on sheet " + self.path + " with size " + str(self.size)
+
+    def replace(self, spr):
+        self.path = spr.path
+        self.coords = spr.coords
+        self.size = spr.size
+        self.render_priority = spr.render_priority
+

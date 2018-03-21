@@ -59,7 +59,7 @@ class Loadable(pygame.sprite.Sprite):
 class SpriteRenderer:
 
     background = None  # path to background image
-    sprites = []       # render queue
+    sprites = []       # render queue, items with lower priority get drawn first
     root_path = ""     # path to root of game
     sc = None          # reference to active scene
     surface = None     # reference to active surface (see pygame.org/doc/ref/Surface.html)

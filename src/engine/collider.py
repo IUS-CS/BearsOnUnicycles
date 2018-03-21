@@ -8,8 +8,6 @@ from . import component as ct
 from . import transform
 
 
-
-
 class Collider(ct.Component):
 
     lowerP = (0, 0)  # bottom left vertex of the collider

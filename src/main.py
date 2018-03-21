@@ -14,10 +14,9 @@ from src import engine
 # =================================================================================
 
 SIZE = (900, 500)
-FPS = 15
+FPS = 60
 INPUT = ih.Handler()
 SCREEN = None
-RENDER = None
 
 
 # =================================================================================
@@ -35,8 +34,20 @@ SCREEN = pygame.display.set_mode(SIZE)
 #   This is where you would load level modules
 # =================================================================================
 
+s = engine.scene.Scene("Test", "\\src\\resources\\levels\mongoliaTent.bmp", set_active=True)
 
+g = engine.game_object.GameObject("Name", set_active=True)
+g.add_component(engine.transform.Transform(x=50, y=50, scale=1))
+g.add_component(engine.sprite.Sprite("\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
+                                     (0, 0), (360, 586), 1))
+g.add_component(engine.animator.Animator())
+g.get_component(engine.animator.Animator).build_animation("idle", (0, 0), 2, (360, 586),
+                                                          "\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
+                                                          (3960, 4104),
+                                                         1)
 
+s.add_game_object(g)
+RENDER = engine.sprite_renderer.SpriteRenderer(s, SCREEN)
 # =================================================================================
 # Game Loop
 #
@@ -49,7 +60,8 @@ while not quitting:
     pygame.time.Clock().tick(FPS)  # run at FPS frames per second
     pygame.display.update()  # tell the screen to repaint
     INPUT.handle_input()  # the input handler is listening
-    # RENDER.update()       # the renderer is active
-
+    RENDER.update()       # the renderer is active
+    s.update()
+    print(str(g.get_component(engine.animator.Animator).current.sprites))
 
 
