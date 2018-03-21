@@ -5,8 +5,9 @@
 
 
 from . import component as ct
+from . import transform
 
-# TODO: scale collider with transform.Transform.scale
+
 
 
 class Collider(ct.Component):
@@ -36,4 +37,6 @@ class Collider(ct.Component):
         self.colliding = not (len(self.collisions) == 0)
 
     def update(self):
+        scale = self.game_object.get_component(transform.Transform).scale
+        self.upperP = (self.upperP[0] * scale, self.upperP[1] * scale)
         self.check_collision()
