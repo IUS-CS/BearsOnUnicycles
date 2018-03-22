@@ -11,3 +11,4 @@ if __name__ == '__main__':
     objectHandler = ObjectHandler()
     objectHandler.run()
     pygame.quit()
+

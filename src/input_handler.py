@@ -22,6 +22,20 @@ class ButtonMap:
            'PAUSE':pygame.K_ESCAPE    \
     }
 
+    game_pads = []
+    '''detect how many controllers are connected,
+        initialize each controller,
+        display the name of that controller
+    '''
+
+    def set_gamepads(self):
+        for i in range(0, pygame.joystick.get_count()):
+        # add controller to joystick list
+            self.game_pads.append(pygame.joystick.Joystick(i))
+            self.game_pads[i].init()
+            print ("Game pad detected: {} assigned to player {}").format(self.game_pads[i].get_name(), (i + 1) )
+
+
 
     def __init__(self):
         pass
