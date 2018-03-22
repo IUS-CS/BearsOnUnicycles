@@ -36,9 +36,4 @@ while not quitting:
             quitting = True
     pygame.time.Clock().tick(FPS)  # run at FPS frames per second
     INPUT.handle_input()  # the input handler is listening
-
-
-
-
-
-print(INPUT.get_active_keys())
+    print(INPUT.get_active_keys())
