@@ -4,7 +4,14 @@
 # This file calls all the main components of the game
 import os
 import pygame
-from . import input_handler as ih
+import input_handler as ih
+
+# =================================================================================
+
+# Initialize pygame (needs to happen before Handler)
+pygame.init()
+pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP, pygame.JOYBUTTONDOWN, pygame.JOYBUTTONUP])
+path = os.path.dirname(os.path.realpath(__file__))
 
 # =================================================================================
 # Static Variables section
@@ -15,16 +22,6 @@ from . import input_handler as ih
 SIZE = (900, 500)
 FPS = 15
 INPUT = ih.Handler()
-SCREEN = None
-
-
-# =================================================================================
-# Initialize pygame
-#
-# =================================================================================
-pygame.init()
-pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
-path = os.path.dirname(os.path.realpath(__file__))
 SCREEN = pygame.display.set_mode(SIZE)
 
 
@@ -43,3 +40,5 @@ while not quitting:
 
 
 
+
+print(INPUT.get_active_keys())

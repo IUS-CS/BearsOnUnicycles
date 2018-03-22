@@ -8,41 +8,81 @@ import pygame
 class ButtonMap:
     '''Struct that holds the button
     mapping to pygame events'''
+    game_pad_present = False  #determines which button map to use
+    game_pads = []
+    map = {}
 
-    map = {'RIGHT': pygame.K_RIGHT,   \
-            'LEFT': pygame.K_LEFT,    \
-            'UP'  : pygame.K_UP,      \
-            'DOWN': pygame.K_DOWN,    \
-     'LIGHT_PUNCH': pygame.K_q,       \
-      'MID_PUNCH' : pygame.K_w,       \
-     'HEAVY_PUNCH': pygame.K_e,       \
-      'LIGHT_KICK': pygame.K_a,       \
-        'MID_KICK': pygame.K_s,       \
-      'HEAVY_KICK': pygame.K_d,       \
-           'PAUSE':pygame.K_ESCAPE    \
+    default = {'P1_RIGHT': pygame.K_RIGHT,   \
+            'P1_LEFT': pygame.K_LEFT,    \
+            'P1_UP'  : pygame.K_UP,      \
+            'P1_DOWN': pygame.K_DOWN,    \
+     'P1_LIGHT_PUNCH': pygame.K_q,       \
+      'P1_MID_PUNCH' : pygame.K_w,       \
+     'P1_HEAVY_PUNCH': pygame.K_e,       \
+      'P1_LIGHT_KICK': pygame.K_a,       \
+        'P1_MID_KICK': pygame.K_s,       \
+      'P1_HEAVY_KICK': pygame.K_d,       \
+           'P1_PAUSE':pygame.K_ESCAPE    \
     }
 
-    game_pads = []
+
+
+
+
     '''detect how many controllers are connected,
+        determine which mapping to use,
         initialize each controller,
         display the name of that controller
     '''
-
     def set_gamepads(self):
-        for i in range(0, pygame.joystick.get_count()):
-        # add controller to joystick list
-            self.game_pads.append(pygame.joystick.Joystick(i))
-            self.game_pads[i].init()
-            print ("Game pad detected: {} assigned to player {}").format(self.game_pads[i].get_name(), (i + 1) )
+        pygame.joystick.init() #must be done before other joystick functions work
+        if pygame.joystick.get_count() > 0:
+            self.game_pad_present = True
+            count = pygame.joystick.get_count()
+            print(count, " game pads detected")
+            for i in range((count)):
+            # add controller to joystick list
+                self.game_pads.append(pygame.joystick.Joystick(i))
+                self.game_pads[i].init() #must be initialized in the list
+                print('.Game pad detected: {} assigned to player {}'.format(self.game_pads[i].get_name(), (i+1) ))
+                i = i+1
 
+                self.map = {'P1_RIGHT': 5, \
+                           'P1_LEFT': 7, \
+                           'P1_UP': 4, \
+                           'P1_DOWN': 6, \
+                           'P1_LIGHT_PUNCH': pygame.K_q, \
+                           'P1_MID_PUNCH': pygame.K_w, \
+                           'P1_HEAVY_PUNCH': pygame.K_e, \
+                           'P1_LIGHT_KICK': pygame.K_a, \
+                           'P1_MID_KICK': pygame.K_s, \
+                           'P1_HEAVY_KICK': pygame.K_d, \
+                           'P1_PAUSE': pygame.K_ESCAPE, \
 
+                           'P2_LEFT': pygame.K_LEFT, \
+                           'P2_UP': pygame.K_UP, \
+                           'P2_DOWN': pygame.K_DOWN, \
+                           'P2_LIGHT_PUNCH': pygame.K_q, \
+                           'P2_MID_PUNCH': pygame.K_w, \
+                           'P2_HEAVY_PUNCH': pygame.K_e, \
+                           'P2_LIGHT_KICK': pygame.K_a, \
+                           'P2_MID_KICK': pygame.K_s, \
+                           'P2_HEAVY_KICK': pygame.K_d, \
+                           'P2_PAUSE': pygame.K_ESCAPE \
+                           }
+        else:
+            self.map = self.default
 
     def __init__(self):
-        pass
+        self.set_gamepads()
+
 
     def get_down(self, key):
         '''Use the pygame function to get input'''
-        return pygame.key.get_pressed()[self.map[key]]
+        if self.game_pad_present:
+            return self.game_pads[0].get_button(7)
+        else:
+            return pygame.key.get_pressed()[self.map[key]]
 
     def change_mapping(self, key, pygame_constant):
         '''Changes the mapping if it is defined'''
@@ -60,20 +100,32 @@ class Handler:
         bmap = ButtonMap()
         keys = {}
         def __init__(self):
-            self.bMap = ButtonMap()
+
             # store the value of each predefined input button
-            self.keys={'RIGHT': False,    \
-                        'LEFT': False,    \
-                        'UP'  : False,    \
-                        'DOWN': False,    \
-                 'LIGHT_PUNCH': False,    \
-                  'MID_PUNCH' : False,    \
-                 'HEAVY_PUNCH': False,    \
-                  'LIGHT_KICK': False,    \
-                    'MID_KICK': False,    \
-                  'HEAVY_KICK': False,    \
-                       'PAUSE': False,    \
-            }
+            self.keys={'P1_RIGHT': False,    \
+                        'P1_LEFT': False,    \
+                        'P1_UP'  : False,    \
+                        'P1_DOWN': False,    \
+                 'P1_LIGHT_PUNCH': False,    \
+                  'P1_MID_PUNCH' : False,    \
+                 'P1_HEAVY_PUNCH': False,    \
+                  'P1_LIGHT_KICK': False,    \
+                    'P1_MID_KICK': False,    \
+                  'P1_HEAVY_KICK': False,    \
+                       'P1_PAUSE': False, \
+ \
+                       'P2_RIGHT': False, \
+                       'P2_LEFT': False, \
+                       'P2_UP': False, \
+                       'P2_DOWN': False, \
+                       'P2_LIGHT_PUNCH': False, \
+                       'P2_MID_PUNCH': False, \
+                       'P2_HEAVY_PUNCH': False, \
+                       'P2_LIGHT_KICK': False, \
+                       'P2_MID_KICK': False, \
+                       'P2_HEAVY_KICK': False, \
+                       'P2_PAUSE': False, \
+                       }
 
         def __str__(self):
             return repr(self)
