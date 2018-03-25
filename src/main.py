@@ -14,7 +14,7 @@ from src import engine
 # =================================================================================
 
 SIZE = (900, 500)
-FPS = 60
+FPS = 15
 INPUT = ih.Handler()
 SCREEN = None
 
@@ -38,16 +38,17 @@ s = engine.scene.Scene("Test", "\\src\\resources\\levels\mongoliaTent.bmp", set_
 
 g = engine.game_object.GameObject("Name", set_active=True)
 g.add_component(engine.transform.Transform(x=50, y=50, scale=1))
-g.add_component(engine.sprite.Sprite("\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
-                                     (0, 0), (360, 586), 1))
+#g.add_component(engine.sprite.Sprite("\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
+#                                     (0, 0), (360, 586), 1))
 g.add_component(engine.animator.Animator())
-g.get_component(engine.animator.Animator).build_animation("idle", (0, 0), 2, (360, 586),
+g.get_component(engine.animator.Animator).build_animation("idle", (0, 0), 6, (360, 586),
                                                           "\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
                                                           (3960, 4104),
                                                          1)
 
 s.add_game_object(g)
 RENDER = engine.sprite_renderer.SpriteRenderer(s, SCREEN)
+ANIM = engine.animation_controller.AnimationPlayer(s, SCREEN)
 # =================================================================================
 # Game Loop
 #
@@ -61,6 +62,6 @@ while not quitting:
     pygame.display.update()  # tell the screen to repaint
     INPUT.handle_input()  # the input handler is listening
     RENDER.update()       # the renderer is active
+    ANIM.update()         # the animator is updating
     s.update()
-
 

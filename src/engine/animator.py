@@ -25,18 +25,23 @@ class Animation:
     cut_size = (128, 128)  # the width and height of the animation frames in pixels
     sprites = []
     path = ""
+    game_object = None
+    priority = 0
+    active = False
 
-    def __init__(self, title, start, count, size):
+    def __init__(self, title, start, count, size, ga):
         self.title = title
         self.start_coords = start
         self.frame_count = count
         self.cut_size = size
         self.sprites = []
+        self.game_object = ga
 
     def load_sprites(self, path, sheet_size, priority):
         '''loads all the sprites for a given animation
         based on the path of the spite sheet and attributes
         of the animation'''
+        self.priority = priority
         self.path = path
         for i in range(self.frame_count):
             x_offset = i * self.cut_size[0]   # move i frames to the right
@@ -45,6 +50,7 @@ class Animation:
             y = self.start_coords[1] + y_offset
             # the above moves y offset pixels down the sheet
             spr = sprite.Sprite(path, (x, y), self.cut_size, priority)
+            spr.game_object = self.game_object
             self.sprites.append(spr)
 
 
@@ -80,15 +86,18 @@ class Animator(ct.Component):
                         priority):   # the render priority
         '''constructs a new animation by the given parameters and
         loads the animation with its sprites'''
-        anim = Animation(title, start, count, size)
+        anim = Animation(title, start, count, size, self.game_object)
         anim.load_sprites(path, sheet_size, priority)
         self.add_animation(anim)
 
     def set_current(self, title):
         '''sets the current playing animation'''
-        self.current = self.animations[title]
+        self.current = title
         self.current_frame = 0
-        self.current_frame_count = self.current.frame_count
+        self.current_frame_count = self.animations[self.current].frame_count
+        for x in self.animations:
+            self.animations[x].active = False
+        self.animations[self.current].active = True
 
     def play(self, isPlaying):
         '''plays or pauses the current animation'''
