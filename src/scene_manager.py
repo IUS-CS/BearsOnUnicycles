@@ -15,14 +15,16 @@ class SceneManager:
     renderer = None
     animator = None
     physics = None
+    root_path = ""
 
-    def __init__(self, screen):
+    def __init__(self, screen, path):
         self.surface = screen       # pygame surface
         self.active_scene = None    # the current scene
         self.scenes = {}            # key = scene.title, value = scene
         self.renderer = None        # engine.sprite_renderer.SpriteRenderer
         self.animator = None        # engine.animation_controller.AnimationPlayer
         self.physics = None         # engine.collision_manager.CollisionManager
+        self.root_path = path       # the path to the dir that contains src
 
     def add_scene(self, scene):
         '''adds a scene to the game, if there are

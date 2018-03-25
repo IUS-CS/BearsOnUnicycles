@@ -4,7 +4,7 @@
 # This file calls all the main components of the game
 import os
 import pygame
-from src import scenes, game_objects
+from src import scenes
 from src import input_handler as ih
 from src import scene_manager as sm
 
@@ -16,10 +16,8 @@ from src import scene_manager as sm
 
 SIZE = (900, 500)
 FPS = 15
+PATH = os.path.abspath("..")
 INPUT = ih.Handler()
-SCREEN = pygame.display.set_mode(SIZE)
-MANAGER = sm.SceneManager(SCREEN)
-
 
 # =================================================================================
 # Initialize pygame
@@ -27,14 +25,20 @@ MANAGER = sm.SceneManager(SCREEN)
 # =================================================================================
 pygame.init()
 pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
-path = os.path.dirname(os.path.realpath(__file__))
+pygame.display.set_caption("SUMOH")
+icon = pygame.image.load_extended(PATH + "/src/resources/misc/icon.png")
+pygame.display.set_icon(icon)
+SCREEN = pygame.display.set_mode(SIZE)
+MANAGER = sm.SceneManager(SCREEN, PATH)
+SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 for overflow
 
 # =================================================================================
 # Start up game
 #   This is where you would load level modules
 # =================================================================================
 
-MANAGER.add_scene(scenes.start_menu.StartMenu())
+MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
+MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
 
 # =================================================================================
 # Game Loop

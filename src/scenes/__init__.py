@@ -1,1 +1,1 @@
-from . import start_menu
+from . import start_menu, splash
