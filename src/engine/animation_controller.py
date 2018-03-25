@@ -59,11 +59,13 @@ class AnimationPlayer:
                 self.load_anim(ga)
 
     def load_anim(self, game_object):
-        anim = game_object.get_component(animator.Animator)
-        self.game_objects[game_object.name] = {}
-        for key in anim.animations:
-            self.game_objects[game_object.name][key] = LoadableAnimator(anim.animations[key].path, anim.animations[key], key)
-            # the integer value represents the current frame step the animation is on
+        if game_object.has_component(animator.Animator):
+            anim = game_object.get_component(animator.Animator)
+            self.game_objects[game_object.name] = {}
+            for key in anim.animations:
+                self.game_objects[game_object.name][key] = LoadableAnimator(anim.animations[key].path,
+                                                                            anim.animations[key], key)
+                # the integer value represents the current frame step the animation is on
 
     def update(self):
         self.sprites = []

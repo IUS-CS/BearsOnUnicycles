@@ -42,7 +42,7 @@ class ButtonMap:
 
 
 class Handler:
-    class __Handler: # this bit makes it a singleton
+    class __Handler:  # this bit makes it a singleton
         bmap = ButtonMap()
         keys = {}
         def __init__(self):

@@ -4,8 +4,9 @@
 # This file calls all the main components of the game
 import os
 import pygame
+from src import scenes, game_objects
 from src import input_handler as ih
-from src import engine
+from src import scene_manager as sm
 
 # =================================================================================
 # Static Variables section
@@ -16,7 +17,8 @@ from src import engine
 SIZE = (900, 500)
 FPS = 15
 INPUT = ih.Handler()
-SCREEN = None
+SCREEN = pygame.display.set_mode(SIZE)
+MANAGER = sm.SceneManager(SCREEN)
 
 
 # =================================================================================
@@ -26,29 +28,14 @@ SCREEN = None
 pygame.init()
 pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 path = os.path.dirname(os.path.realpath(__file__))
-SCREEN = pygame.display.set_mode(SIZE)
-
 
 # =================================================================================
 # Start up game
 #   This is where you would load level modules
 # =================================================================================
 
-s = engine.scene.Scene("Test", "\\src\\resources\\levels\mongoliaTent.bmp", set_active=True)
+MANAGER.add_scene(scenes.start_menu.StartMenu())
 
-g = engine.game_object.GameObject("Name", set_active=True)
-g.add_component(engine.transform.Transform(x=50, y=50, scale=1))
-#g.add_component(engine.sprite.Sprite("\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
-#                                     (0, 0), (360, 586), 1))
-g.add_component(engine.animator.Animator())
-g.get_component(engine.animator.Animator).build_animation("idle", (0, 0), 6, (360, 586),
-                                                          "\\src\\resources\\spritesheets\\curie\\marie curie basic1.png",
-                                                          (3960, 4104),
-                                                         1)
-
-s.add_game_object(g)
-RENDER = engine.sprite_renderer.SpriteRenderer(s, SCREEN)
-ANIM = engine.animation_controller.AnimationPlayer(s, SCREEN)
 # =================================================================================
 # Game Loop
 #
@@ -61,7 +48,4 @@ while not quitting:
     pygame.time.Clock().tick(FPS)  # run at FPS frames per second
     pygame.display.update()  # tell the screen to repaint
     INPUT.handle_input()  # the input handler is listening
-    RENDER.update()       # the renderer is active
-    ANIM.update()         # the animator is updating
-    s.update()
-
+    MANAGER.update_scene()
