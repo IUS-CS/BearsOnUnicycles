@@ -62,6 +62,5 @@ while not quitting:
     INPUT.handle_input()  # the input handler is listening
     RENDER.update()       # the renderer is active
     s.update()
-    print(str(g.get_component(engine.animator.Animator).current.sprites))
 
 

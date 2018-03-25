@@ -24,6 +24,7 @@ class Animation:
     frame_count = 1        # the number of frames this animation contains
     cut_size = (128, 128)  # the width and height of the animation frames in pixels
     sprites = []
+    path = ""
 
     def __init__(self, title, start, count, size):
         self.title = title
@@ -36,6 +37,7 @@ class Animation:
         '''loads all the sprites for a given animation
         based on the path of the spite sheet and attributes
         of the animation'''
+        self.path = path
         for i in range(self.frame_count):
             x_offset = i * self.cut_size[0]   # move i frames to the right
             x = (self.start_coords[0] + x_offset) % sheet_size[0]
@@ -49,7 +51,6 @@ class Animation:
 class Animator(ct.Component):
 
     animations = {}  # key = title, value = Animation object
-    sprite_target = None  # the sprite attached to this game object
     priority = 0
     current = None
     current_frame = 0
@@ -79,11 +80,6 @@ class Animator(ct.Component):
                         priority):   # the render priority
         '''constructs a new animation by the given parameters and
         loads the animation with its sprites'''
-        try:
-            self.sprite_target = self.game_object.get_component(sprite.Sprite)
-            self.priority = self.sprite_target.render_priority
-        except game_object.GameObjectError:
-            raise AnimatorError(NO_SPRITE_COMPONENT)
         anim = Animation(title, start, count, size)
         anim.load_sprites(path, sheet_size, priority)
         self.add_animation(anim)
@@ -109,6 +105,3 @@ class Animator(ct.Component):
                 self.set_current("idle")
             except KeyError:
                 raise AnimatorError(NO_IDLE_ANIMATION)
-        self.sprite_target = self.current.sprites[self.current_frame]
-        self.game_object.get_component(sprite.Sprite).replace(self.sprite_target)
-        self.next_sprite()

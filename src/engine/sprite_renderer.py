@@ -24,6 +24,7 @@ class Loadable(pygame.sprite.Sprite):
     image = None
     scale = (0, 0)
     priority = 0
+    trans = None
 
     def __init__(self, path, spr, location):
         '''takes a file path, a sprite object,
@@ -42,7 +43,8 @@ class Loadable(pygame.sprite.Sprite):
             raise RendererError(FILE_NOT_FOUND)  # my error message more helpful than theirs
         rect = pygame.Rect(spr.coords[0], spr.coords[1], spr.coords[0] + spr.size[0],
                            spr.coords[1] + spr.size[1])
-        scale_t = spr.game_object.get_component(transform.Transform).scale
+        self.trans = spr.game_object.get_component(transform.Transform)
+        scale_t = self.trans.scale
         self.scale = (scale_t * spr.size[0], scale_t * spr.size[1])
         self.image = pygame.Surface(rect.size).convert()
         self.image.set_colorkey((0, 0, 0, 255))  # since the background is now black because of pygame default
@@ -52,8 +54,7 @@ class Loadable(pygame.sprite.Sprite):
 
     def update(self, *args):
         '''renders self each frame'''
-        trans = self.spr.game_object.get_component(transform.Transform)
-        self.location = (trans.world_x, trans.world_y)
+        self.location = (self.trans.world_x, self.trans.world_y)
 
 
 class SpriteRenderer:
@@ -75,7 +76,6 @@ class SpriteRenderer:
     def load_sprites(self):
         '''loads the sprite images into
         the renderer's queue'''
-        self.sprites = []
         for g in self.sc.game_objects:
             self.load_sprites_rec(g)
         self.sprites.sort(key=lambda x: x.priority, reverse=True)
@@ -102,12 +102,13 @@ class SpriteRenderer:
     def update(self):
         '''updates the sprites on the
         screen'''
-        self.load_sprites()  # refresh the render queue
         self.surface.blit(self.background, (0, 0))
         for spr in self.sprites:
             spr.update()
             spr.image = pygame.transform.scale(spr.image, (spr.scale[0], spr.scale[1]))
             self.surface.blit(spr.image, spr.location)
+
+
 
 
 
