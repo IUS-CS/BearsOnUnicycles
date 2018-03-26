@@ -24,6 +24,7 @@ class Loadable(pygame.sprite.Sprite):
     image = None
     scale = (0, 0)
     priority = 0
+    trans = None
 
     def __init__(self, path, spr, location):
         '''takes a file path, a sprite object,
@@ -38,28 +39,27 @@ class Loadable(pygame.sprite.Sprite):
             sheet = pygame.image.load_extended(path).convert()
             sheet.set_colorkey(sheet.get_at((0, 0)))   # sets the alpha mask to the color of the first pixel
         except pygame.error:
-            print(path)
             raise RendererError(FILE_NOT_FOUND)  # my error message more helpful than theirs
-        rect = pygame.Rect(spr.coords[0], spr.coords[1], spr.coords[0] + spr.size[0],
-                           spr.coords[1] + spr.size[1])
-        scale_t = spr.game_object.get_component(transform.Transform).scale
+        rect = pygame.Rect(spr.coords[0], spr.coords[1],  spr.size[0], spr.size[1])
+        print(rect)
+        self.trans = spr.game_object.get_component(transform.Transform)
+        scale_t = self.trans.scale
         self.scale = (scale_t * spr.size[0], scale_t * spr.size[1])
-        self.image = pygame.Surface(rect.size).convert()
-        self.image.set_colorkey((0, 0, 0, 255))  # since the background is now black because of pygame default
-        self.image.blit(sheet, (spr.coords[0], spr.coords[1]), rect)
+        self.image = sheet.subsurface(rect)
+        self.image.set_colorkey(sheet.get_at((0, 0)))  # same as above
+        print(self.image)
         self.location = location
         self.priority = spr.render_priority
 
     def update(self, *args):
         '''renders self each frame'''
-        trans = self.spr.game_object.get_component(transform.Transform)
-        self.location = (trans.world_x, trans.world_y)
+        self.location = (self.trans.world_x, self.trans.world_y)
 
 
 class SpriteRenderer:
 
     background = None  # path to background image
-    sprites = []       # render queue
+    sprites = []       # render queue, items with lower priority get drawn first
     root_path = ""     # path to root of game
     sc = None          # reference to active scene
     surface = None     # reference to active surface (see pygame.org/doc/ref/Surface.html)
@@ -75,7 +75,6 @@ class SpriteRenderer:
     def load_sprites(self):
         '''loads the sprite images into
         the renderer's queue'''
-        self.sprites = []
         for g in self.sc.game_objects:
             self.load_sprites_rec(g)
         self.sprites.sort(key=lambda x: x.priority, reverse=True)
@@ -102,12 +101,13 @@ class SpriteRenderer:
     def update(self):
         '''updates the sprites on the
         screen'''
-        self.load_sprites()  # refresh the render queue
         self.surface.blit(self.background, (0, 0))
         for spr in self.sprites:
             spr.update()
             spr.image = pygame.transform.scale(spr.image, (spr.scale[0], spr.scale[1]))
             self.surface.blit(spr.image, spr.location)
+
+
 
 
 

@@ -8,6 +8,7 @@
 import pygame
 from . import scene, game_object, collider, transform
 
+
 class CollisionManager:
 
     rects = {}              # every collider in the scene
