@@ -51,13 +51,13 @@ class ButtonMap:
                            'P1_LEFT': 7, \
                            'P1_UP': 4, \
                            'P1_DOWN': 6, \
-                           'P1_LIGHT_PUNCH': 1, \
+                           'P1_LIGHT_PUNCH': 4, \
                            'P1_MID_PUNCH': 2, \
                            'P1_HEAVY_PUNCH': 3, \
                            'P1_LIGHT_KICK': 8, \
                            'P1_MID_KICK': 9, \
                            'P1_HEAVY_KICK': 10, \
-                           'P1_PAUSE': pygame.K_ESCAPE, \
+                           'P1_PAUSE': 23, \
 
                            'P2_LEFT': pygame.K_LEFT, \
                            'P2_UP': pygame.K_UP, \
