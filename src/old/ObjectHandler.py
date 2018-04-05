@@ -1,7 +1,7 @@
 import os
 import pygame
-import constants as c
-from Level import LevelCreation
+from old import constants as c
+from old import Level
 
 class ObjectHandler(object):
 
@@ -12,7 +12,7 @@ class ObjectHandler(object):
         #our character works.
         pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 
-        level = LevelCreation()
+        level = Level.LevelCreation()
         self.setupScreen(level)
         self.run()
 

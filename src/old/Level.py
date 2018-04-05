@@ -1,6 +1,6 @@
 #Need to look into not having to use pygame to load this
 import pygame
-import constants as c
+from old import constants as c
 
 class LevelCreation():
 

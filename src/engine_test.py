@@ -1,5 +1,6 @@
 # This file is just a playground to test the engine with
-from src import engine
+
+'''from src import engine
 
 
 s = engine.scene.Scene("Title", "None", set_active=True)
@@ -30,3 +31,5 @@ print(g.get_component(engine.collider.Collider).collisions)
 coll.update()
 s.update()
 print(g.get_component(engine.collider.Collider).collisions)
+
+'''
