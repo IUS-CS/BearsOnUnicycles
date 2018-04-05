@@ -1,12 +1,13 @@
-
+'''
 from unittest import TestCase
-from ObjectHandler import ObjectHandler
+from old import ObjectHandler
 
 class TestObjectHandler(TestCase):
     def test_setupScreen(self):
-        example = ObjectHandler()
+        example = ObjectHandler
         self.assertTrue(example.setupScreen())
 
     def test_run(self):
-        example = ObjectHandler()
+        example = ObjectHandler
         self.assertTrue(example.run())
+'''
