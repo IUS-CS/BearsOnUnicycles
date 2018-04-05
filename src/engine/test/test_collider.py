@@ -1,4 +1,4 @@
-from engine import game_object, collider
+from .. import game_object, collider
 from unittest import TestCase
 
 

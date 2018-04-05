@@ -1,4 +1,4 @@
-from engine import component
+from .. import component
 from unittest import TestCase
 
 

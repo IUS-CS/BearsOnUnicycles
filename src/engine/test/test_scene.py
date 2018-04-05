@@ -1,6 +1,4 @@
-from engine import scene
-from engine import game_object
-from engine import component
+from .. import scene, game_object, component
 from unittest import TestCase
 
 

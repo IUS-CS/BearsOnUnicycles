@@ -1,5 +1,4 @@
-from engine import transform
-from engine import game_object
+from .. import transform,  game_object
 
 from unittest import TestCase
 

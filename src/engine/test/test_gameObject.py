@@ -1,5 +1,5 @@
-from engine import game_object
-from engine import component
+from .. import game_object
+from .. import component
 from unittest import TestCase
 
 
