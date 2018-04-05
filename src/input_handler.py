@@ -23,7 +23,7 @@ class ButtonMap:
              'P1_PAUSE'
              }
 
-#each pg.K_ value corrisponds to an index in the matrix returned by the function pg.key.get_pressed
+    # each pg.K_ value corrisponds to an index in the matrix returned by the function pg.key.get_pressed
     keyboard_map = {'P1_RIGHT': pg.K_d,
                     'P1_LEFT': pg.K_a,
                     'P1_UP': pg.K_w,
@@ -49,30 +49,52 @@ class ButtonMap:
                     'P2_PAUSE': pg.K_q,
 
                     }
-    joystick_map_1_player = {'P1_RIGHT': 12,
-                    'P1_LEFT': 12,
-                    'P1_UP': 12,
-                    'P1_DOWN': 12,
-                    'P1_LIGHT_PUNCH': 4,
-                    'P1_MID_PUNCH': 0,
-                    'P1_HEAVY_PUNCH': 3,
-                    'P1_LIGHT_KICK': 6,
-                    'P1_MID_KICK': 1,
-                    'P1_HEAVY_KICK': 2,
-                    'P1_PAUSE': 9,
+    joystick_map_1_player = {'P1_RIGHT': 'P1_RIGHT',
+                             'P1_LEFT': 'P1_LEFT',
+                             'P1_UP': 'P1_UP',
+                             'P1_DOWN': 'P1_DOWN',
+                             'P1_LIGHT_PUNCH': 4,
+                             'P1_MID_PUNCH': 0,
+                             'P1_HEAVY_PUNCH': 3,
+                             'P1_LIGHT_KICK': 6,
+                             'P1_MID_KICK': 1,
+                             'P1_HEAVY_KICK': 2,
+                             'P1_PAUSE': 9,
 
-                    'P2_RIGHT': 12,
-                    'P2_LEFT': 12,
-                    'P2_UP': 3,
-                    'P2_DOWN': 4,
-                    'P2_LIGHT_PUNCH': 5,
-                    'P2_MID_PUNCH': 6,
-                    'P2_HEAVY_PUNCH': 7,
-                     'P2_LIGHT_KICK': 8,
-                    'P2_MID_KICK': 9,
-                    'P2_HEAVY_KICK': 10,
-                    'P2_PAUSE': 11,
+                             'P2_RIGHT': 'P2_RIGHT',
+                             'P2_LEFT': 'P2_LEFT',
+                             'P2_UP': 'P2_UP',
+                             'P2_DOWN': 'P2_DOWN',
+                             'P2_LIGHT_PUNCH': 5,
+                             'P2_MID_PUNCH': 6,
+                             'P2_HEAVY_PUNCH': 7,
+                             'P2_LIGHT_KICK': 8,
+                             'P2_MID_KICK': 9,
+                             'P2_HEAVY_KICK': 10,
+                             'P2_PAUSE': 11,
                              }
+
+    joystick_hat_conversion_map = {'P1_RIGHT': (0, 1),
+                                   'P1_LEFT': (0, -1),
+                                   'P1_UP': (1, 1),
+                                   'P1_DOWN': (1, -1),
+
+                                   'P2_RIGHT': (0, 1),
+                                   'P2_LEFT': (0, -1),
+                                   'P2_UP': (1, 1),
+                                   'P2_DOWN': (1, -1)
+
+                                   }
+
+    def get_hat_direction(self, button):
+        direction_check = self.joystick_hat_conversion_map[button][0]
+        going_that_way_check = self.joystick_hat_conversion_map[button][1]
+        actual_input = self.game_pads[0].get_hat(0)[direction_check]
+        
+        if actual_input == going_that_way_check:
+            return 1
+        else:
+            return 0
 
     def get_down_keyboard(self, key):
         '''Using the pygame function to get input. All keys are returned by get_pressed.
@@ -82,23 +104,26 @@ class ButtonMap:
         return pg.key.get_pressed()[key]
 
     def get_down_gamepad(self, key):
-
-        print(self.game_pads[0].get_hat(0), ' get down gamepad function ran')
-        return self.game_pads[0].get_button(key)
+        if key in self.joystick_hat_conversion_map.keys():
+            return self.get_hat_direction(key)
+        else:
+            return self.game_pads[0].get_button(key)
 
     '''detect how many controllers are connected,
         determine which mapping to use,
         initialize each controller,
         display the name of that controller
     '''
+
     def set_gamepads(self):
         pg.joystick.init()  # must be done before other joystick functions work
-        if pg.joystick.get_count() > 0:
-            pg.game_pad_present = True #todo fix it so that this takes place at the beginning but not every loop
-            joystick_count = pg.joystick.get_count()
+        joystick_count = pg.joystick.get_count()
+        if joystick_count > 0:
+            self.game_pad_present = True  # todo fix it so that this takes place at the beginning but not every loop
+
             print(joystick_count, "game pad(s) detected")
             for i in range((joystick_count)):
-            # add controller to joystick list
+                # add controller to joystick list
                 self.game_pads.append(pg.joystick.Joystick(i))
                 self.game_pads[i].init()  # must be initialized in the list
                 print('.Game pad detected: {} assigned to player {}'.format(self.game_pads[i].get_name(), (i + 1)))
@@ -107,10 +132,11 @@ class ButtonMap:
         else:
             print("No joystick detected. SHAME ON YOU")
 
-
-
     def __init__(self):
+
         self.set_gamepads()
+
+
 '''
 def get_down(self, key):
     Use the pygame function to get input
@@ -121,13 +147,12 @@ def get_down(self, key):
 
 '''
 
-
-
 '''Handles the key/joystick events continuously'''
 
 
 class Handler:
     class __Handler:  # this bit makes it a singleton
+
         bmap = ButtonMap()
         keys = bmap.input
 
@@ -164,7 +189,7 @@ class Handler:
         # Checks an individual button to see if it is being pressed. Returns boolean value
         def get_down(self, button):
             if self.bmap.game_pad_present:
-                print('Found gamepad')
+
                 return self.bmap.get_down_gamepad(self.bmap.joystick_map_1_player[button])
             else:
                 return self.bmap.get_down_keyboard(self.bmap.keyboard_map[button])
