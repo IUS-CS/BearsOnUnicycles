@@ -1,1 +1,1 @@
-from . import start_menu, splash
+from . import start_menu, splash, arena
