@@ -39,7 +39,9 @@ class Loadable(pygame.sprite.Sprite):
             sheet = pygame.image.load_extended(path).convert()
             sheet.set_colorkey(sheet.get_at((0, 0)))   # sets the alpha mask to the color of the first pixel
         except pygame.error:
+            print(path)
             raise RendererError(FILE_NOT_FOUND)  # my error message more helpful than theirs
+
         rect = pygame.Rect(spr.coords[0], spr.coords[1],  spr.size[0], spr.size[1])
         print(rect)
         self.trans = spr.game_object.get_component(transform.Transform)

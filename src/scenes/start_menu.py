@@ -21,6 +21,6 @@ class StartMenu(engine.scene.Scene):
 
     def update(self):
         super(StartMenu, self).update()
-        if len(input_handler.Handler().get_active_keys()):
+        if len(input_handler.Handler().get_active_keys()) > 0:
             #self.manager.change_to_active("play menu")
-            pass
+            self.manager.change_to_active("arena")
