@@ -44,8 +44,11 @@ class Character(engine.game_object.GameObject):
 
     ignore_input = False  # ignore input until the state changes
 
+    fall_speed = 25  # pixels per frame
+
     def __init__(self, name, pos, size, collision_manager):
         super(Character, self).__init__(name, set_active=True)
+        self.size = size
         self.transform = t = engine.transform.Transform(pos[0], pos[1])
         self.add_component(t)
         self.animator = a = engine.animator.Animator()
@@ -84,7 +87,7 @@ class Character(engine.game_object.GameObject):
         """changes the current state to
         #state"""
         self.current = self.states[state]
-        self.next = self.current.next
+        self.next = self.states[self.current.next]
         self.animator.set_current(state)
 
     def state_machine(self):
@@ -95,8 +98,8 @@ class Character(engine.game_object.GameObject):
 
     def set_bounded(self, screen):
         """Ensures character stays on screen"""
-        self.x_bounds = (0, screen[0])
-        self.y_bounds = (0, screen[1])
+        self.x_bounds = (-screen[0] / 2 + self.size[0] / 4, screen[0] / 2 - self.size[0] / 4)
+        self.y_bounds = (-screen[1] / 2 + self.size[1] / 3, screen[1] / 2 - self.size[1] / 3)
 
     def check_bounds(self):
         """adheres the object to its borders"""
@@ -111,10 +114,8 @@ class Character(engine.game_object.GameObject):
 
     def update(self):
         super(Character, self).update()
+        self.transform.vel_y = self.fall_speed
         self.check_bounds()
         self.current.update()
-        self.state_machine()
-        if self.current.change:
-            self.change_state(self.next)
-            self.ignore_input = False
+
 

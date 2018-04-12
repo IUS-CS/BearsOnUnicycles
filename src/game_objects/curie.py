@@ -70,8 +70,25 @@ class Curie(character.Character):
         self.load_states(STATES)
 
     def state_machine(self):
-        """overridden from Character"""
-        pass
+        """overridden from Character
+
+        precedence order is from bottom to top
+        i.e. states at the bottom will override states
+        at the top so be careful of the order"""
+        # grounded
+        if self.transform.y == self.y_bounds[1]:
+            self.next = self.states["idle"]
+        # falling
+        if self.transform.y < self.y_bounds[1]:
+            self.next = self.states['air_idle']
+
+
+
 
     def update(self):
         super(Curie, self).update()
+        self.state_machine()
+        if self.current.change:
+            self.change_state(self.next.title)
+            self.ignore_input = False
+
