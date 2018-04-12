@@ -43,13 +43,11 @@ class Loadable(pygame.sprite.Sprite):
             raise RendererError(FILE_NOT_FOUND)  # my error message more helpful than theirs
 
         rect = pygame.Rect(spr.coords[0], spr.coords[1],  spr.size[0], spr.size[1])
-        print(rect)
         self.trans = spr.game_object.get_component(transform.Transform)
         scale_t = self.trans.scale
         self.scale = (scale_t * spr.size[0], scale_t * spr.size[1])
         self.image = sheet.subsurface(rect)
         self.image.set_colorkey(sheet.get_at((0, 0)))  # same as above
-        print(self.image)
         self.location = location
         self.priority = spr.render_priority
 
