@@ -5,7 +5,7 @@
 import os
 import pygame
 from src import scenes
-from src import input_handler as ih
+from src import input_handler as i
 from src import scene_manager as sm
 
 # =================================================================================
@@ -13,7 +13,7 @@ from src import scene_manager as sm
 #
 #
 # =================================================================================
-
+pygame.init()
 SIZE = (900, 500)
 FPS = 15
 PATH = os.path.abspath("..")
@@ -23,7 +23,7 @@ INPUT = ih.Handler()
 # Initialize pygame
 #
 # =================================================================================
-pygame.init()
+
 pygame.event.set_allowed([pygame.QUIT, pygame.KEYDOWN, pygame.KEYUP])
 pygame.display.set_caption("SUMOH")
 icon = pygame.image.load_extended(PATH + "/src/resources/misc/icon.png")
