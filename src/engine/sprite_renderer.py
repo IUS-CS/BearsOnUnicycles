@@ -23,6 +23,7 @@ class Loadable(pygame.sprite.Sprite):
     spr = None
     image = None
     scale = (0, 0)
+    flip = False
     priority = 0
     trans = None
 
@@ -50,10 +51,12 @@ class Loadable(pygame.sprite.Sprite):
         self.image.set_colorkey(sheet.get_at((0, 0)))  # same as above
         self.location = location
         self.priority = spr.render_priority
+        self.flip = False
 
     def update(self, *args):
         '''renders self each frame'''
         self.location = (self.trans.world_x, self.trans.world_y)
+        self.flip = self.trans.flip
 
 
 class SpriteRenderer:
@@ -105,6 +108,7 @@ class SpriteRenderer:
         for spr in self.sprites:
             spr.update()
             spr.image = pygame.transform.scale(spr.image, (spr.scale[0], spr.scale[1]))
+            spr.image = pygame.transform.flip(spr.image, False, spr.flip)
             self.surface.blit(spr.image, spr.location)
 
 

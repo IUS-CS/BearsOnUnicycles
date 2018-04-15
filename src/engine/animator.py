@@ -61,6 +61,7 @@ class Animator(ct.Component):
     current = None
     current_frame = 0
     current_frame_count = 1
+    flip = False
 
     def __init__(self):
         super(Animator, self).__init__(set_active=True)
@@ -70,6 +71,7 @@ class Animator(ct.Component):
         self.current = None
         self.current_frame = 0
         self.current_frame_count = 1
+        self.flip = False
 
     def add_animation(self, animation):
         '''adds a possible animation
@@ -114,3 +116,4 @@ class Animator(ct.Component):
                 self.set_current("idle")
             except KeyError:
                 raise AnimatorError(NO_IDLE_ANIMATION)
+        #self.flip =

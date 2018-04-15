@@ -4,8 +4,8 @@
 # This file calls all the main components of the game
 import os
 import pygame
-from src import scenes
-from src import input_handler as i
+from src import scenes, game_objects
+from src import input_handler as ih
 from src import scene_manager as sm
 
 # =================================================================================
@@ -14,8 +14,8 @@ from src import scene_manager as sm
 #
 # =================================================================================
 pygame.init()
-SIZE = (900, 500)
-FPS = 15
+SIZE = (960, 540)
+FPS = 24
 PATH = os.path.abspath("..")
 INPUT = ih.Handler()
 
@@ -37,14 +37,23 @@ SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 fo
 #   This is where you would load level modules
 # =================================================================================
 
-MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
+# MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
 MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
+c1 = game_objects.curie.Curie((50, 0), (game_objects.curie.SIZE_X, game_objects.curie.SIZE_Y),
+                              MANAGER.physics.check_collisions)
+c1.set_bounded((SIZE[0], SIZE[1]))
+c2 = game_objects.curie.Curie((400, 0), (game_objects.curie.SIZE_X, game_objects.curie.SIZE_Y),
+                              MANAGER.physics.check_collisions)
+c2.set_bounded((SIZE[0], SIZE[1]))
+c2.name = "player2"
+MANAGER.add_scene(scenes.arena.Arena(MANAGER, "/src/resources/levels/mongoliaTent.bmp", c1, c2, None))
 
 # =================================================================================
 # Game Loop
 #
 # =================================================================================
 quitting = False
+frames = 0
 while not quitting:
     for event in pygame.event.get():  # Boiler plate pygame loop
         if event.type == pygame.QUIT:

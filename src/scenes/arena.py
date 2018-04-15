@@ -5,8 +5,9 @@
 #       so don't f*** it up :)
 
 
-from src import engine
-import pygame
+from src import engine, input_handler as ih
+
+INPUT = ih.Handler()
 
 
 class Arena(engine.scene.Scene):
@@ -14,6 +15,7 @@ class Arena(engine.scene.Scene):
     player1 = None          # from game_objects.character.Character
     player2 = None
     UI = None               # from game_objects.UI.UI
+
 
     manager = None
 
@@ -24,13 +26,38 @@ class Arena(engine.scene.Scene):
         self.player2 = player2
         if player1 is not None:
             self.add_game_object(player1)
+            player1.input = player1_input
         if player2 is not None:
             self.add_game_object(player2)
+            player2.input = player2_input
         self.UI = UI
         if UI is not None:
             self.add_game_object(UI)
+
+    def flip_players(self):
+        """orients the players transforms so
+        that they will always face each other"""
+        if self.player1 is not None and self.player2 is not None:
+            if self.player1.transform.x < self.player2.transform.x:
+                self.player1.transform.flip = False
+                self.player2.transform.flip = True
+            else:
+                self.player1.transform.flip = True
+                self.player2.transform.flip = False
 
     def update(self):
         super(Arena, self).update()
 
 
+
+def get_input(player_num, input):
+    """function that returns the input for each player"""
+    return INPUT.get_down("P{0}_{1}".format(player_num, input))
+
+def player1_input(input):
+    """uses above to return input to player 1"""
+    return get_input(1, input)
+
+def player2_input(input):
+    """uses above to return input to player 2"""
+    return get_input(2, input)
