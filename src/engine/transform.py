@@ -42,7 +42,6 @@ class Transform(ct.Component):
     def set_flip(self, b):
         """Sets the value of flip and changes
         the value of last flip"""
-        print(self.flip, self._last_flip)
         self._last_flip = self.flip
         self.flip = b
 
