@@ -13,6 +13,7 @@ class Transform(ct.Component):
     world_x = 0     # The world x position of this game object
     world_y = 0     # The world x position of this game object
     scale = 1       # The scale of this game object
+    flip = False    # is this positively or negatively oriented along y-axis?
     vel_x = 0       # the rate of change of x
     vel_y = 0       # the rate of change of y
 
@@ -23,6 +24,7 @@ class Transform(ct.Component):
         self.scale = scale
         self.vel_x = 0
         self.vel_y = 0
+        self.flip = False
 
     def __str__(self):
         return super(Transform, self).__str__() + \
