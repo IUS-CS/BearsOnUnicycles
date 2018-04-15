@@ -15,8 +15,6 @@ class Arena(engine.scene.Scene):
     player1 = None          # from game_objects.character.Character
     player2 = None
     UI = None               # from game_objects.UI.UI
-
-
     manager = None
 
     def __init__(self, manager, background, player1, player2, UI):
@@ -39,13 +37,13 @@ class Arena(engine.scene.Scene):
         that they will always face each other"""
         if self.player1 is not None and self.player2 is not None:
             if self.player1.transform.x < self.player2.transform.x:
-                self.player1.transform.flip = False
-                self.player2.transform.flip = True
+                self.player1.transform.set_flip(False)
             else:
-                self.player1.transform.flip = True
-                self.player2.transform.flip = False
+                self.player1.transform.set_flip(True)
+            self.player2.transform.set_flip(not self.player1.transform.flip)
 
     def update(self):
+        self.flip_players()
         super(Arena, self).update()
 
 
