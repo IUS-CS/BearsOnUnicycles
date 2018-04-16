@@ -46,5 +46,6 @@ class Collider(ct.Component):
         self.lowerP = (self.transform.x, self._h + self.transform.y)
         self.upperP = (self._w + self.transform.x, self.transform.y)
         scale = self.transform.scale
-        self.upperP = (self.upperP[0] * scale, self.upperP[1] * scale)
+        self._w = self._w * scale
+        self._h = self._h * scale
         self.check_collision()
