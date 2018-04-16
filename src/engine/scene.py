@@ -7,7 +7,7 @@ from . import game_object as go
 
 
 class SceneError(Exception):
-    '''Exceptions that can be thrown from scene'''
+    """Exceptions that can be thrown from scene"""
     pass
 
 
@@ -37,14 +37,15 @@ class Scene:
         self.active = active
 
     def add_game_object(self, game_object):
-        '''Adds a game obejct to the scene'''
+        """Adds a game obejct to the scene"""
         if not isinstance(game_object, go.GameObject):
             raise SceneError(NOT_GAME_OBJECT)
         self.game_objects.append(game_object)
+        game_object.scene = self
 
     def remove_game_object_by_name(self, name):
-        '''Removes a game_object from the scene
-        throws an error if not found'''
+        """Removes a game_object from the scene
+        throws an error if not found"""
         for g in self.game_objects:
             if g.name == name:
                 self.game_objects.remove(g)
@@ -52,17 +53,17 @@ class Scene:
         raise SceneError(OBJ_NOT_FOUND)
 
     def get_object_by_name(self, name):
-        '''gets a game obejct by name in
+        """gets a game obejct by name in
         the scene and throws an error if
-        not found'''
+        not found"""
         for g in self.game_objects:
             if g.name == name:
                 return g
         raise SceneError(OBJ_NOT_FOUND)
 
     def get_objects_of_type(self, oType):
-        '''gets a list of game_objects a specified
-        type'''
+        """gets a list of game_objects a specified
+        type"""
         temp = []
         for g in self.game_objects:
             if type(g) is oType:
@@ -70,8 +71,8 @@ class Scene:
         return temp
 
     def update(self):
-        '''perform any logic for one frame on everything
-        in the scene'''
+        """perform any logic for one frame on everything
+        in the scene"""
         if self.active:
             for g in self.game_objects:
                 g.update()

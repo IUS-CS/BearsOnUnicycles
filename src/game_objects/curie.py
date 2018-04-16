@@ -5,8 +5,6 @@
 
 
 from . import character
-from src import engine
-from src import input_handler
 
 """
 format for animation loading is:
