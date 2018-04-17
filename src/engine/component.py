@@ -21,6 +21,4 @@ class Component:
 
     def update(self):
         '''Perform any logic for one frame'''
-        if not self.active:
-            return
         pass

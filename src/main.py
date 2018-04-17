@@ -39,14 +39,7 @@ SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 fo
 
 # MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
 MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
-c1 = game_objects.curie.Curie((50, 0), (game_objects.curie.SIZE_X, game_objects.curie.SIZE_Y),
-                              MANAGER.physics.check_collisions)
-c1.set_bounded((SIZE[0], SIZE[1]))
-c2 = game_objects.curie.Curie((400, 0), (game_objects.curie.SIZE_X, game_objects.curie.SIZE_Y),
-                              MANAGER.physics.check_collisions)
-c2.set_bounded((SIZE[0], SIZE[1]))
-c2.name = "player2"
-MANAGER.add_scene(scenes.arena.Arena(MANAGER, "/src/resources/levels/mongoliaTent.bmp", c1, c2, None))
+MANAGER.add_scene(scenes.arena.Arena(MANAGER, "/src/resources/levels/LondonAlley.jpg", "Einstein", "Curie", UI=True))
 
 # =================================================================================
 # Game Loop

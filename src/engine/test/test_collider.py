@@ -27,5 +27,5 @@ class TestCollider(TestCase):
         g.add_component(transform.Transform(x=4, y=4, scale=2))
         g.add_component(collider.Collider((4, 4), (5, 5), mock_check_collisions_V2))
         g.update()
-        assert g.get_component(collider.Collider).upperP == (10, 10)
-        assert g.get_component(collider.Collider).lowerP == (4, 4)
+        assert g.get_component(collider.Collider).upperP == (5, 4)
+        assert g.get_component(collider.Collider).lowerP == (4, 5)
