@@ -4,7 +4,7 @@
 # This file renders the animations for a game object using pygame
 import pygame
 import os
-from . import sprite_renderer, animator
+from . import sprite_renderer, animator, transform
 
 
 class LoadableAnimator(pygame.sprite.Group):
@@ -45,7 +45,7 @@ class LoadableAnimator(pygame.sprite.Group):
 
 class AnimationPlayer:
 
-    game_objects = {}  # key = name, value = {title, LoadableAnimation object}
+    game_objects = {}  # key = name, value = {title, LoadableAnimator object}
     sc = None          # the scene this game object is attached to
     sprites = []       # the animators render queue
     surface = None
@@ -73,16 +73,11 @@ class AnimationPlayer:
             for key in self.game_objects[name]:
                 if self.game_objects[name][key].active:
                     self.sprites.append((self.game_objects[name][key].get_current(),
-                                         self.game_objects[name][key].priority))
+                                         self.game_objects[name][key].priority, (name, key)))
                 self.game_objects[name][key].update()
         self.sprites.sort(key=lambda x: x[1])  # sort along render priority
         for spr in self.sprites:
-            self.surface.blit(spr[0].image, spr[0].location)
-
-
-
-
-
-
-
-
+            rend = spr[0].image.copy()
+            if self.game_objects[spr[2][0]][spr[2][1]].anim.game_object.get_component(transform.Transform).flip:
+                rend = pygame.transform.flip(spr[0].image, True, False)
+            self.surface.blit(rend, spr[0].location)

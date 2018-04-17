@@ -6,8 +6,7 @@
 #   Objects that are statically animated should only use the sprite component
 
 from . import component as ct
-from . import sprite, game_object
-import pygame
+from . import sprite, transform
 
 class AnimatorError(Exception):
     pass
@@ -38,9 +37,9 @@ class Animation:
         self.game_object = ga
 
     def load_sprites(self, path, sheet_size, priority):
-        '''loads all the sprites for a given animation
+        """loads all the sprites for a given animation
         based on the path of the spite sheet and attributes
-        of the animation'''
+        of the animation"""
         self.priority = priority
         self.path = path
         for i in range(self.frame_count):
@@ -61,7 +60,6 @@ class Animator(ct.Component):
     current = None
     current_frame = 0
     current_frame_count = 1
-    flip = False
 
     def __init__(self):
         super(Animator, self).__init__(set_active=True)
@@ -71,11 +69,10 @@ class Animator(ct.Component):
         self.current = None
         self.current_frame = 0
         self.current_frame_count = 1
-        self.flip = False
 
     def add_animation(self, animation):
-        '''adds a possible animation
-        to the animator'''
+        """adds a possible animation
+        to the animator"""
         self.animations[animation.title] = animation
 
     def build_animation(self,
@@ -86,14 +83,14 @@ class Animator(ct.Component):
                         path,        # the path to the sprite sheet
                         sheet_size,  # the dimensions of the sprite sheet
                         priority):   # the render priority
-        '''constructs a new animation by the given parameters and
-        loads the animation with its sprites'''
+        """constructs a new animation by the given parameters and
+        loads the animation with its sprites"""
         anim = Animation(title, start, count, size, self.game_object)
         anim.load_sprites(path, sheet_size, priority)
         self.add_animation(anim)
 
     def set_current(self, title):
-        '''sets the current playing animation'''
+        """sets the current playing animation"""
         self.current = title
         self.current_frame = 0
         self.current_frame_count = self.animations[self.current].frame_count
@@ -102,12 +99,12 @@ class Animator(ct.Component):
         self.animations[self.current].active = True
 
     def play(self, isPlaying):
-        '''plays or pauses the current animation'''
+        """plays or pauses the current animation"""
         self.active = isPlaying
 
     def next_sprite(self):
-        '''changes the sprite image attached to the
-        game object to the next frame in the cycle'''
+        """changes the sprite image attached to the
+        game object to the next frame in the cycle"""
         self.current_frame = (self.current_frame + 1) % self.current_frame_count
 
     def update(self):
@@ -116,4 +113,3 @@ class Animator(ct.Component):
                 self.set_current("idle")
             except KeyError:
                 raise AnimatorError(NO_IDLE_ANIMATION)
-        #self.flip =

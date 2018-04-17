@@ -31,6 +31,14 @@ class State:
         self.counter += 1
 
 
+MAX_HEALTH = 100
+LP_DAMAGE = 5
+HP_DAMAGE = 10
+LP_FRAMES = 2
+HP_FRAMES = 4
+BLOWBACK = 25  # pixels per frame
+
+
 class Character(engine.game_object.GameObject):
 
     transform = None
@@ -47,7 +55,7 @@ class Character(engine.game_object.GameObject):
     ignore_input = False  # ignore input until the state changes
 
     fall_speed = 25  # pixels per frame
-    jump_frames = 6  # how long jump raises the character
+    jump_frames = 10  # how long jump raises the character
     jump_counter = 1
     walk_speed = 10  # pixels per frame
 
@@ -58,8 +66,16 @@ class Character(engine.game_object.GameObject):
     crouched = False
     walking = False
     jumping = True
+    blocking = False
+    attacking = False
+    blown = False
+    blown_frames = 0
+    blown_frames_counter = 0
+    damage_output = 0
 
     vulnerable_modifier = 4  # adds frames to an action to make the player vulnerable
+
+    health = 0
 
     def __init__(self, name, pos, size, collision_manager):
         super(Character, self).__init__(name, set_active=True)
@@ -80,6 +96,12 @@ class Character(engine.game_object.GameObject):
         self.input = None
         self.ignore_frames = 0
         self.ignore_frames_counter = 0
+        self.blocking = False
+        self.attacking = False
+        self.damage_output = 0
+        self.attack_frames = 0
+        self.attack_frames_counter = 0
+        self.health = MAX_HEALTH
 
     def load_animations(self, anim_list):
         """Loads all a characters animations
@@ -117,8 +139,8 @@ class Character(engine.game_object.GameObject):
 
     def set_bounded(self, screen):
         """Ensures character stays on screen"""
-        self.x_bounds = (-screen[0] / 2 + self.size[0], screen[0] / 2 + self.size[0])
-        self.y_bounds = (-screen[1] / 2 + self.size[1] / 3, screen[1] / 2 - self.size[1] / 3)
+        self.x_bounds = (-screen[0] / 2 + self.size[0] * 3, screen[0] / 2 + self.size[0])
+        self.y_bounds = (-screen[1] / 2 + self.size[1] * .3, screen[1] / 2 - screen[1] * .3)
 
     def check_bounds(self):
         """adheres the object to its borders"""
@@ -165,16 +187,13 @@ class Character(engine.game_object.GameObject):
             if self.transform.y >= self.y_bounds[1]:
                 self.change_state("idle")
                 self.grounded = True
-            # # # falling
-            # elif self.transform.y < self.y_bounds[1]:
-            #     self.next = self.states['air_idle']
         else:
             # jumping
             if self.transform.y < self.y_bounds[1]:
                 self.change_state('jump')
                 self.grounded = False
         # crouched
-        if self.crouched:
+        if self.crouched and not (self.current.title == "crouch_punch1" or self.current.title == "crouch_punch2"):
             self.change_state("crouch")
             self.move()
         if not self.crouched and self.walking and self.grounded:
@@ -195,32 +214,55 @@ class Character(engine.game_object.GameObject):
                 self.walking = False
             if self.input("RIGHT"):
                 self.move(right=True)
+                if self.transform.flip:
+                    self.blocking = True
+                else:
+                    self.blocking = False
             elif self.input("LEFT"):
+                if not self.transform.flip:
+                    self.blocking = True
+                else:
+                    self.blocking = False
                 self.move(left=True)
             else:
                 self.move()
+                self.blocking = False
         # air punches
         if not self.grounded:
             if self.input("LIGHT_PUNCH"):
                 self.change_state("air_punch1")
                 self.ignore_input_timer(self.states["air_punch1"].frames)
+                self.attack(LP_FRAMES)
+                self.damage_output = LP_DAMAGE
             elif self.input("HEAVY_PUNCH"):
                 self.change_state("air_punch2")
                 self.ignore_input_timer(self.states["air_punch2"].frames)
+                self.attack(HP_FRAMES)
+                self.damage_output = HP_DAMAGE
+        # regular punches
         if self.grounded and not self.crouched:
             if self.input("LIGHT_PUNCH"):
                 self.change_state("punch1")
                 self.ignore_input_timer(self.states["punch1"].frames)
+                self.attack(LP_FRAMES)
+                self.damage_output = LP_DAMAGE
             elif self.input("HEAVY_PUNCH"):
                 self.change_state("punch2")
                 self.ignore_input_timer(self.states["punch2"].frames)
+                self.attack(HP_FRAMES)
+                self.damage_output = HP_DAMAGE
+        # crouch punches
         if self.crouched:
             if self.input("LIGHT_PUNCH"):
                 self.change_state("crouch_punch1")
                 self.ignore_input_timer(self.states["crouch_punch1"].frames)
+                self.attack(LP_FRAMES)
+                self.damage_output = LP_DAMAGE
             elif self.input("HEAVY_PUNCH"):
                 self.change_state("crouch_punch2")
                 self.ignore_input_timer(self.states["crouch_punch2"].frames)
+                self.attack(HP_FRAMES)
+                self.damage_output = HP_DAMAGE
 
     def ignore_input_timer(self, frames):
         """Ignores controller input for a certain
@@ -237,6 +279,67 @@ class Character(engine.game_object.GameObject):
             else:
                 self.ignore_input = True
 
+    def attack(self, frames):
+        """Sets the attacking bool true
+        for so many frames"""
+        if not self.attacking:
+            self.attacking = True
+            self.attack_frames = frames
+            self.attack_frames_counter = 0
+
+    def check_attack(self):
+        """Checks to see if the
+        attacking bool should be cleared"""
+        if self.attacking:
+            self.attack_frames_counter += 1
+            if self.attack_frames_counter >= self.attack_frames:
+                self.attacking = False
+            else:
+                self.attacking = True
+
+    def damage(self, amount):
+        """Deals damage to the character"""
+        if self.health > 0:
+            self.health -= amount
+        self.blowback_timer(amount / 2)
+        print(self.name, self.health)
+
+    def blowback_timer(self, frames):
+        """sets blowback to true for
+        a certain amount of frames"""
+        self.blown = True
+        self.blown_frames = frames
+        self.blown_frames_counter = 1
+
+    def check_blown(self):
+        """clears the blowback bool
+        if needed"""
+        if self.blown:
+            self.blown_frames_counter += 1
+            if self.blown_frames_counter >= self.blown_frames:
+                self.blown = False
+            else:
+                self.blown = True
+
+    def blowback(self):
+        """moves the player away from the
+        damage on a successful hit"""
+        if self.blown:
+            if self.transform.flip:
+                self.transform.vel_x = BLOWBACK
+            else:
+                self.transform.vel_x = -BLOWBACK
+
+    def on_collision(self):
+        """Handles the logic of
+        collisions for damage calculations"""
+        # if we make contact with another player
+        for g in self.collider.collisions:
+            if g[1] != self.name:
+                # if they are attacking and we are not blocking (walking backwards)
+                if self.scene.get_object_by_name(g[1]).attacking and not self.blocking:
+                    self.damage(self.scene.get_object_by_name(g[1]).damage_output)
+
     def update(self):
         super(Character, self).update()
         self.transform.vel_y = self.fall_speed
@@ -244,11 +347,19 @@ class Character(engine.game_object.GameObject):
         self.current.update()
         if self.jumping:
             self.jump()
+        self.state_machine()
         if not self.ignore_input:
             self.handle_inputs()
-        self.state_machine()
+        else:
+            self.move()  # fix for sliding bug
         if self.current.change:
             self.change_state(self.next.title)
         self.check_ignore()
-
+        if self.collider.colliding:
+            self.on_collision()
+        if not self.attacking:
+            self.damage_output = 0
+        self.check_attack()
+        self.check_blown()
+        self.blowback()
 

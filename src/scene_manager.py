@@ -40,14 +40,20 @@ class SceneManager:
         scene = self.scenes[title]
         self.renderer = engine.sprite_renderer.SpriteRenderer(scene, self.surface)
         self.animator = engine.animation_controller.AnimationPlayer(scene, self.surface)
-        self.physics = engine.collision_manager.CollisionManager(scene)
+        if self.physics is None:
+            self.physics = engine.collision_manager.CollisionManager(scene)
+        else:
+            self.physics.sc = scene
         self.active_scene = scene
 
     def update_scene(self):
         '''updates the current scene and passes it
         to the renderer, animator, and physics'''
         if self.active_scene is not None:
-            self.active_scene.update()
-            self.renderer.update()
-            self.animator.update()
             self.physics.update()
+            self.active_scene.update()
+            self.renderer.draw_background()
+            self.animator.update()
+            self.renderer.update()
+
+

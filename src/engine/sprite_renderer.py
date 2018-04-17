@@ -4,7 +4,7 @@
 # This file renders sprites to the screen using pygame's rendering system
 
 
-from . import scene, sprite, game_object, transform
+from . import sprite, transform
 import pygame
 import os
 
@@ -26,14 +26,17 @@ class Loadable(pygame.sprite.Sprite):
     flip = False
     priority = 0
     trans = None
+    size = (0, 0)
+    max_size = (0, 0)
+    diff = (0, 0)
 
     def __init__(self, path, spr, location):
-        '''takes a file path, a sprite object,
+        """takes a file path, a sprite object,
         a sprite sheet where the object is located,
         and a location where the obj will be rendered
 
         loads the file where the sprite is located
-        and pushes it to te render queue'''
+        and pushes it to te render queue"""
         super(Loadable, self).__init__()
         self.spr = spr
         try:
@@ -51,12 +54,16 @@ class Loadable(pygame.sprite.Sprite):
         self.image.set_colorkey(sheet.get_at((0, 0)))  # same as above
         self.location = location
         self.priority = spr.render_priority
-        self.flip = False
+        self.flip = spr.flip
+        self.max_size = self.size = self.spr.size
+        self.diff = (0, 0)
 
-    def update(self, *args):
-        '''renders self each frame'''
+
+    def update(self):
+        """renders self each frame"""
         self.location = (self.trans.world_x, self.trans.world_y)
-        self.flip = self.trans.flip
+        self.size = self.spr.size
+        self.diff = (self.max_size[0] - self.size[0], self.max_size[1] - self.size[1])
 
 
 class SpriteRenderer:
@@ -76,8 +83,8 @@ class SpriteRenderer:
         self.load_sprites()
 
     def load_sprites(self):
-        '''loads the sprite images into
-        the renderer's queue'''
+        """loads the sprite images into
+        the renderer"s queue"""
         for g in self.sc.game_objects:
             self.load_sprites_rec(g)
         self.sprites.sort(key=lambda x: x.priority, reverse=True)
@@ -85,8 +92,8 @@ class SpriteRenderer:
         #  note: the background is hard coded to render first
 
     def load_sprites_rec(self, g):
-        '''helps load sprites by recurring through
-        the children'''
+        """helps load sprites by recurring through
+        the children"""
         for gC in g.children:
             self.load_sprites_rec(gC)
         if g.has_component(sprite.Sprite) and g.active:
@@ -96,20 +103,28 @@ class SpriteRenderer:
             self.sprites.append(load)  # fills the list with Loadable objects
 
     def load_background(self):
-        '''loads the background image'''
+        """loads the background image"""
         back = pygame.image.load_extended(self.root_path + self.sc.background)
         back = pygame.transform.scale(back, self.surface.get_size())
         self.background = back
 
-    def update(self):
-        '''updates the sprites on the
-        screen'''
+    def draw_background(self):
+        """renders the background"""
         self.surface.blit(self.background, (0, 0))
+
+    def update(self):
+        """updates the sprites on the
+        screen"""
         for spr in self.sprites:
             spr.update()
-            spr.image = pygame.transform.scale(spr.image, (spr.scale[0], spr.scale[1]))
-            spr.image = pygame.transform.flip(spr.image, False, spr.flip)
-            self.surface.blit(spr.image, spr.location)
+            if spr.size[0] == 0 or spr.size[1] == 0:
+                continue
+            rend = pygame.transform.scale(spr.image, (spr.size[0], spr.size[1]))
+            rend2 = pygame.transform.flip(rend, spr.flip, False)
+            if spr.flip:
+                self.surface.blit(rend2, (spr.location[0] + spr.diff[0], spr.location[1] + spr.diff[1]))
+            else:
+                self.surface.blit(rend2, spr.location)
 
 
 

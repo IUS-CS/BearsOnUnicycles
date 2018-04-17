@@ -12,6 +12,7 @@ class Sprite(ct.Component):
     coords = (0, 0)     # the pixel coords of the sprite
     size = (128, 128)   # the pixel size of the sprite
     render_priority = 0
+    flip = False
 
     def __init__(self, path, coords, size, rp):
         super(Sprite, self).__init__(set_active=True)
@@ -19,10 +20,15 @@ class Sprite(ct.Component):
         self.coords = coords
         self.size = size
         self.render_priority = rp
+        self.flip = False
 
     def __str__(self):
         return "Sprite located at " + str(self.coords) + \
             " on sheet " + self.path + " with size " + str(self.size)
+
+    def set_flip(self, val):
+        """sets the flip bool"""
+        self.flip = val
 
     def replace(self, spr):
         self.path = spr.path
