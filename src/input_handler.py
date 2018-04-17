@@ -49,7 +49,7 @@ class ButtonMap:
                     "P2_PAUSE": pg.K_q,
 
                     }
-    joystick_map_1_player = {"P1_RIGHT": "P1_RIGHT",
+    joystick_map= {"P1_RIGHT": "P1_RIGHT",
                              "P1_LEFT": "P1_LEFT",
                              "P1_UP": "P1_UP",
                              "P1_DOWN": "P1_DOWN",
@@ -65,21 +65,23 @@ class ButtonMap:
                              "P2_LEFT": "P2_LEFT",
                              "P2_UP": "P2_UP",
                              "P2_DOWN": "P2_DOWN",
-                             "P2_LIGHT_PUNCH": 5,
-                             "P2_MID_PUNCH": 6,
-                             "P2_HEAVY_PUNCH": 7,
-                             "P2_LIGHT_KICK": 8,
-                             "P2_MID_KICK": 9,
-                             "P2_HEAVY_KICK": 10,
-                             "P2_PAUSE": 11,
+                             "P2_LIGHT_PUNCH": 4,
+                             "P2_MID_PUNCH": 0,
+                             "P2_HEAVY_PUNCH": 3,
+                             "P2_LIGHT_KICK": 6,
+                             "P2_MID_KICK": 1,
+                             "P2_HEAVY_KICK": 2,
+                             "P2_PAUSE": 9,
                              }
 
-    joystick_hat_conversion_map = {"P1_RIGHT": (0, 1),
+
+    joystick_hat_conversion_map_0 = {"P1_RIGHT": (0, 1),
                                    "P1_LEFT": (0, -1),
                                    "P1_UP": (1, 1),
                                    "P1_DOWN": (1, -1),
+                                     }
 
-                                   "P2_RIGHT": (0, 1),
+    joystick_hat_conversion_map_1 = {"P2_RIGHT": (0, 1),
                                    "P2_LEFT": (0, -1),
                                    "P2_UP": (1, 1),
                                    "P2_DOWN": (1, -1)
@@ -103,11 +105,28 @@ class ButtonMap:
 
         return pg.key.get_pressed()[key]
 
-    def get_down_gamepad(self, key):
-        if key in self.joystick_hat_conversion_map.keys():
-            return self.get_hat_direction(key)
+    def get_down_gamepad(self, key, controller):
+
+        if (key in self.joystick_hat_conversion_map_0.keys() or key in self.joystick_hat_conversion_map_1.keys()):
+            direction_check = None
+            actual_input = None
+            going_that_way_check = None
+
+            if key in self.joystick_hat_conversion_map_0.keys() and controller == 0:
+                direction_check = self.joystick_hat_conversion_map_0[key][0]
+                actual_input = self.game_pads[0].get_hat(0)[direction_check]
+                going_that_way_check = self.joystick_hat_conversion_map_0[key][1]
+            if (key in self.joystick_hat_conversion_map_1.keys() and controller == 1):
+                direction_check = self.joystick_hat_conversion_map_1[key][0]
+                actual_input = self.game_pads[1].get_hat(0)[direction_check]
+                going_that_way_check = self.joystick_hat_conversion_map_1[key][1]
+
+            if actual_input == going_that_way_check: return 1
+            else: return 0
+
         else:
-            return self.game_pads[0].get_button(key)
+            return self.game_pads[controller].get_button(key)
+
 
     """detect how many controllers are connected,
         determine which mapping to use,
@@ -118,7 +137,7 @@ class ButtonMap:
     def set_gamepads(self):
         pg.joystick.init()  # must be done before other joystick functions work
         joystick_count = pg.joystick.get_count()
-        if joystick_count > 0:
+        if joystick_count >= 1:
             self.game_pad_present = True  
 
             print(joystick_count, "game pad(s) detected")
@@ -137,16 +156,6 @@ class ButtonMap:
         self.set_gamepads()
 
 
-"""
-def get_down(self, key):
-    Use the pygame function to get input
-    if self.bmap.game_pad_present:
-        return self.game_pads[0].get_button(7)
-    else:
-        return pg.key.get_pressed()[self.map[key]]
-"""
-
-"""Handles the key/joystick events continuously"""
 
 
 class Handler:
@@ -157,7 +166,7 @@ class Handler:
 
         def __init__(self):
 
-            self.keys = {"P1_RIGHT": False,
+            self.p1_keys = {"P1_RIGHT": False,
                          "P1_LEFT": False,
                          "P1_UP": False,
                          "P1_DOWN": False,
@@ -167,9 +176,10 @@ class Handler:
                          "P1_LIGHT_KICK": False,
                          "P1_MID_KICK": False,
                          "P1_HEAVY_KICK": False,
-                         "P1_PAUSE": False,
+                         "P1_PAUSE": False
+                            }
 
-                         "P2_RIGHT": False,
+            self.p2_keys = {"P2_RIGHT": False,
                          "P2_LEFT": False,
                          "P2_UP": False,
                          "P2_DOWN": False,
@@ -186,23 +196,29 @@ class Handler:
             return repr(self)
 
         # Checks an individual button to see if it is being pressed. Returns boolean value
-        def get_down(self, button):
+        def get_down(self, button, controller):
             if self.bmap.game_pad_present:
 
-                return self.bmap.get_down_gamepad(self.bmap.joystick_map_1_player[button])
+                return self.bmap.get_down_gamepad(self.bmap.joystick_map[button], controller)
             else:
                 return self.bmap.get_down_keyboard(self.bmap.keyboard_map[button])
 
         # Check each button to see if it is being pressed. Sets button map values to true for buttons pushed
         def handle_input(self):
-            for button in self.keys:
-                self.keys[button] = self.get_down(button)
+
+            for button in self.p1_keys:
+                self.p1_keys[button] = self.get_down(button, 0)
+            for button in self.p2_keys:
+                self.p2_keys[button] = self.get_down(button, 1)
 
         # Returns just the keys that are active as a list.
         def get_active_keys(self):
             temp = []
-            for button in self.keys.keys():
-                if self.keys[button]:
+            for button in self.p1_keys.keys():
+                if self.p1_keys[button]:
+                    temp.append(button)
+            for button in self.p2_keys.keys():
+                if self.p2_keys[button]:
                     temp.append(button)
             return temp
 
