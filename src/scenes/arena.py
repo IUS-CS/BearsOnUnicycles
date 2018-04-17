@@ -76,7 +76,8 @@ class Arena(engine.scene.Scene):
 
 def get_input(player_num, input):
     """function that returns the input for each player"""
-    return INPUT.get_down("P{0}_{1}".format(player_num, input))
+    controller_int = player_num - 1
+    return INPUT.get_down("P{0}_{1}".format(player_num, input), controller_int)
 
 def player1_input(input):
     """uses above to return input to player 1"""
