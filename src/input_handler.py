@@ -137,7 +137,8 @@ class ButtonMap:
     def set_gamepads(self):
         pg.joystick.init()  # must be done before other joystick functions work
         joystick_count = pg.joystick.get_count()
-        if joystick_count >= 1:
+
+        if joystick_count == 2:
             self.game_pad_present = True  
 
             print(joystick_count, "game pad(s) detected")
@@ -149,8 +150,8 @@ class ButtonMap:
                 print(self.game_pads[i].get_numbuttons(), "buttons detected on joystick", i)
                 i = i + 1
         else:
-            print("No joystick detected. SHAME ON YOU")
-
+            print("Not two joysticks?!  SHAME ON YOU")
+            print("use the keyboard")
     def __init__(self):
 
         self.set_gamepads()
