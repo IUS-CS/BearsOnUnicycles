@@ -139,7 +139,7 @@ class Character(engine.game_object.GameObject):
 
     def set_bounded(self, screen):
         """Ensures character stays on screen"""
-        self.x_bounds = (-screen[0] / 2 + self.size[0], screen[0] / 2 + self.size[0])
+        self.x_bounds = (-screen[0] / 2 + self.size[0] * 3, screen[0] / 2 + self.size[0])
         self.y_bounds = (-screen[1] / 2 + self.size[1] * .3, screen[1] / 2 - screen[1] * .3)
 
     def check_bounds(self):

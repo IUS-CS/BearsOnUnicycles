@@ -26,7 +26,7 @@ class Arena(engine.scene.Scene):
     UI = None               # from game_objects.UI.UI
     manager = None
 
-    def __init__(self, manager, background, player1_name, player2_name, UI):
+    def __init__(self, manager, background, player1_name, player2_name, UI=False):
         super(Arena, self).__init__("arena", background, set_active=True)
         self.manager = manager
         self.player1 = CHARACTERS[player1_name][1](P1_START_POS,
@@ -45,9 +45,8 @@ class Arena(engine.scene.Scene):
         if self.player2 is not None:
             self.add_game_object(self.player2)
             self.player2.input = player2_input
-        self.UI = UI
-        if self.UI is not None:
-            self.add_game_object(UI)
+        if UI:
+            self.add_game_object(game_objects.UI.UI(self.player1, self.player2))
 
     def flip_players(self):
         """orients the players transforms so
@@ -59,9 +58,19 @@ class Arena(engine.scene.Scene):
                 self.player1.transform.set_flip(True)
             self.player2.transform.set_flip(not self.player1.transform.flip)
 
+    def win_condition(self):
+        """Checks to see if anyone won"""
+        if self.player1.health <= 0:
+            print("Player 1 Wins!")
+            self.manager.change_to_active("Start Menu")
+        if self.player2.health <= 0:
+            print("Player 2 Wins!")
+            self.manager.change_to_active("Start Menu")
+
     def update(self):
         self.flip_players()
         super(Arena, self).update()
+        self.win_condition()
 
 
 

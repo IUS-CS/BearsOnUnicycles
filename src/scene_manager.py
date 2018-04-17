@@ -52,6 +52,8 @@ class SceneManager:
         if self.active_scene is not None:
             self.physics.update()
             self.active_scene.update()
-            self.renderer.update()
+            self.renderer.draw_background()
             self.animator.update()
+            self.renderer.update()
+
 
