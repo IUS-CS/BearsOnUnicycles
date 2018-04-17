@@ -5,9 +5,11 @@
 
 from src import engine, scenes
 
+
 class LoadArena(engine.scene.Scene):
     
     manager = None
+    activated = False  # have we started loading the scene?
 
     def __init__(self, manager, background, player1_name, player2_name, UI=False):
         super(LoadArena, self).__init__("Load Arena", "/src/resources/levels/Loading.png", set_active=True)
@@ -17,7 +19,10 @@ class LoadArena(engine.scene.Scene):
         g.add_component(engine.transform.Transform())
         g.add_component(engine.sprite.Sprite("/src/resources/levels/Loading.png", (0, 0), (960, 540), 0))
         self.add_game_object(g)
+        self.activated = False
 
     def update(self):
         super(LoadArena, self).update()
-        self.manager.change_to_active("arena")
+        if not self.activated:
+            self.activated = True
+            self.manager.change_to_active_background("arena")

@@ -5,6 +5,7 @@
 #   engine
 
 from src import engine
+import threading
 
 
 class SceneManager:
@@ -37,14 +38,29 @@ class SceneManager:
     def change_to_active(self, title):
         '''sets the current scene to title and
         unloads the other current scene'''
+        print("Loading Scene {}...".format(title))
         scene = self.scenes[title]
-        self.renderer = engine.sprite_renderer.SpriteRenderer(scene, self.surface)
-        self.animator = engine.animation_controller.AnimationPlayer(scene, self.surface)
+        print("Loading Sprites...")
+        renderer = engine.sprite_renderer.SpriteRenderer(scene, self.surface)
+        print("Loading Animations...")
+        animator = engine.animation_controller.AnimationPlayer(scene, self.surface)
         if self.physics is None:
+            print("Initializing Physics...")
             self.physics = engine.collision_manager.CollisionManager(scene)
         else:
             self.physics.sc = scene
+        self.renderer = renderer
+        self.animator = animator
         self.active_scene = scene
+        print("Scene Loaded")
+
+    def change_to_active_background(self, title):
+        """performs the change to active function
+        on a background thread (process) so the main thread doesn't hang"""
+        print("Creating Load Thread for {}...".format(title))
+        t = threading.Thread(name="Loading Thread", target=self.change_to_active, args=(title,))
+        t.setDaemon(True)
+        t.start()
 
     def update_scene(self):
         '''updates the current scene and passes it

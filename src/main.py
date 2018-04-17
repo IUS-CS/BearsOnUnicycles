@@ -7,6 +7,7 @@ import pygame
 from src import scenes, game_objects
 from src import input_handler as ih
 from src import scene_manager as sm
+import threading
 
 # =================================================================================
 # Static Variables section
