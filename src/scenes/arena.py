@@ -32,11 +32,10 @@ class Arena(engine.scene.Scene):
         self.player1 = CHARACTERS[player1_name][1](P1_START_POS,
                                                    COLLIDER_SIZE,
                                                    self.manager.physics.check_collisions)
-        self.player1.name = "Player 1 ({})".format(player1_name)
+
         self.player2 = CHARACTERS[player2_name][1](P2_START_POS,
                                                    COLLIDER_SIZE,
                                                    self.manager.physics.check_collisions)
-        self.player2.name = "Player 2 ({})".format(player2_name)
         self.player1.set_bounded(BOUNDS)
         self.player2.set_bounded(BOUNDS)
         if self.player1 is not None:
@@ -47,6 +46,8 @@ class Arena(engine.scene.Scene):
             self.player2.input = player2_input
         if UI:
             self.add_game_object(game_objects.UI.UI(self.player1, self.player2))
+        self.player1.name = "Player 1 ({})".format(player1_name)
+        self.player2.name = "Player 2 ({})".format(player2_name)
 
     def flip_players(self):
         """orients the players transforms so

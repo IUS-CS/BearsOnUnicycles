@@ -4,12 +4,12 @@
 # This module defines the logic for the health bar for each character
 
 from src import engine
-from . import character
+from . import character, nametag
 
 
 PATH = "/src/resources/misc/health_fill2.png"
 P1_COORDS = (25, 25)
-P2_COORDS = (550, 25)
+P2_COORDS = (635, 25)
 SIZE = (300, 25)
 BAR_SIZE = (310, 35)
 
@@ -20,6 +20,7 @@ class HealthBar(engine.game_object.GameObject):
     sprite = None
     character = None
     border = None
+    nametag = None
 
     def __init__(self, character, player1=False, player2=False):
         super(HealthBar, self).__init__(character.name, set_active=True)
@@ -40,6 +41,10 @@ class HealthBar(engine.game_object.GameObject):
         self.border.add_component(sprite)
         self.border.add_component(engine.transform.Transform(x=-5, y=-5))
         self.add_child(self.border)
+
+        self.nametag = nametag.Nametag(character, character.name)
+        self.add_child(self.nametag)
+        self.nametag.add_component(engine.transform.Transform(y=25))
 
     def update(self):
         super(HealthBar, self).update()
