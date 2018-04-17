@@ -3,8 +3,7 @@
 # Since: 3/25/28
 # This file creates the start menu scene, a simple title screen where the user must press a button to continue
 
-from .. import engine
-from .. import input_handler
+from .. import engine, input_handler, scenes
 
 
 class StartMenu(engine.scene.Scene):
@@ -23,5 +22,6 @@ class StartMenu(engine.scene.Scene):
         super(StartMenu, self).update()
         if len(input_handler.Handler().get_active_keys()) > 0:
             print("load next scene")
-            #self.manager.change_to_active("play menu")
-            self.manager.change_to_active("arena")
+            self.manager.add_scene(scenes.load_arena.LoadArena(self.manager, "/src/resources/levels/LondonAlley.jpg",
+                                                               "Einstein", "Curie", UI=True))
+            self.manager.change_to_active("Load Arena")

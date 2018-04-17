@@ -1,1 +1,1 @@
-from . import character, curie, einstein, UI
+from . import character, curie, einstein, UI, nametag

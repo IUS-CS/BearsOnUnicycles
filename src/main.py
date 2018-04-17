@@ -7,6 +7,7 @@ import pygame
 from src import scenes, game_objects
 from src import input_handler as ih
 from src import scene_manager as sm
+import threading
 
 # =================================================================================
 # Static Variables section
@@ -37,9 +38,8 @@ SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 fo
 #   This is where you would load level modules
 # =================================================================================
 
-# MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
+MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
 MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
-MANAGER.add_scene(scenes.arena.Arena(MANAGER, "/src/resources/levels/LondonAlley.jpg", "Einstein", "Curie", UI=True))
 
 # =================================================================================
 # Game Loop
