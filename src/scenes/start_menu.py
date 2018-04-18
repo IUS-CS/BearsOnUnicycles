@@ -21,10 +21,21 @@ class StartMenu(engine.scene.Scene):
     def update(self):
         super(StartMenu, self).update()
         if len(input_handler.Handler().get_active_keys()) > 0:
+<<<<<<< HEAD
 
+=======
+<<<<<<< Updated upstream
+            #self.manager.change_to_active("play menu")
+            self.manager.change_to_active("arena")
+=======
+>>>>>>> b00aa72386da9f184f0442552fdde8bb9c5f0c99
             print("load next scene")
             self.manager.add_scene(scenes.character_select.CharacterSelect(self.manager,
                                                                            "/src/resources/menu/characterSelect.png"))
             self.manager.add_scene(scenes.load_arena.LoadArena(self.manager, "/src/resources/levels/LondonAlley.jpg",
                                                                "Einstein", "Curie", UI=True))
             self.manager.change_to_active("CharacterSelect")
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> b00aa72386da9f184f0442552fdde8bb9c5f0c99
