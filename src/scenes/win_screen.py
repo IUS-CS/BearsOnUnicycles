@@ -3,6 +3,8 @@
 # Since: 4/17/18
 # This module displays the screen after a player has won in Arena
 
+import pygame
+
 from src import engine
 
 
@@ -32,4 +34,9 @@ class WinScreen(engine.scene.Scene):
         if self.timer_count >= self.timer:
             self.timer_bool = True
         if self.timer_bool:
+            self.sound = pygame.mixer.Sound(self.manager.root_path +
+                                            "/src/resources/menu/Juhani Junkala [Retro Game Music Pack] Title Screen.wav")
+            if pygame.mixer.get_busy():
+                pygame.mixer.stop()
+            self.sound.play(loops=-1)
             self.manager.change_to_active("Start Menu")

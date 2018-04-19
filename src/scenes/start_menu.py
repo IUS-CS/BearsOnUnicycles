@@ -3,12 +3,15 @@
 # Since: 3/25/28
 # This file creates the start menu scene, a simple title screen where the user must press a button to continue
 
+import pygame
+
 from src import engine, input_handler, scenes
 
 
 class StartMenu(engine.scene.Scene):
 
     manager = None      # the scene manager
+    sound = None
 
     def __init__(self, manager):
         super(StartMenu, self).__init__("Start Menu", "/src/resources/levels/StartMenu.png", set_active=True)
@@ -18,18 +21,18 @@ class StartMenu(engine.scene.Scene):
         self.add_game_object(g)
         self.manager = manager
 
+        self.sound = pygame.mixer.Sound(self.manager.root_path +
+                                        "/src/resources/menu/Juhani Junkala [Retro Game Music Pack] Title Screen.wav")
+        if pygame.mixer.get_busy():
+            pygame.mixer.stop()
+        self.sound.play(loops=-1)
+
     def update(self):
         super(StartMenu, self).update()
         if len(input_handler.Handler().get_active_keys()) > 0:
-
             print("load next scene")
-
             self.manager.add_scene(scenes.character_select.CharacterSelect(self.manager,
                                                                            "/src/resources/menu/characterSelect.png",
                                                                            "box1", "box2"))
             self.manager.change_to_active("CharacterSelect")
 
-            '''
-            self.manager.add_scene(scenes.character_select.CharacterSelect(self.manager, ))
-            self.manager.change_to_active("Load Arena")
-            '''

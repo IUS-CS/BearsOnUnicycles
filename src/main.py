@@ -40,7 +40,6 @@ SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 fo
 # =================================================================================
 
 MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
-MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
 
 # =================================================================================
 # Game Loop
@@ -53,6 +52,10 @@ while not quitting:
         if event.type == pygame.QUIT:
             quitting = True
     pygame.time.Clock().tick(FPS)  # run at FPS frames per second
+    if MANAGER.active_scene.title == "Load Arena":
+        FPS = 2
+    else:
+        FPS = 30
     pygame.display.update()  # tell the screen to repaint
     INPUT.handle_input()  # the input handler is listening
     MANAGER.update_scene()

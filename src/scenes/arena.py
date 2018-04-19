@@ -5,6 +5,8 @@
 #       so don't f*** it up :)
 
 
+import pygame
+
 from src import engine, input_handler as ih, game_objects, scenes
 
 INPUT = ih.Handler()
@@ -14,6 +16,8 @@ CHARACTERS = {'Einstein': (game_objects.einstein, game_objects.einstein.Einstein
               "Darwin": (game_objects.darwin, game_objects.darwin.Darwin),
               "Hawking": (game_objects.hawking, game_objects.hawking.Hawking),
               "Newton": (game_objects.newton, game_objects.newton.Newton),
+              "Pythagoras": (game_objects.pythagoras, game_objects.pythagoras.Pythagoras),
+              "Tesla": (game_objects.tesla, game_objects.tesla.Tesla),
               "NULL": None,
               }
 
@@ -52,6 +56,12 @@ class Arena(engine.scene.Scene):
             self.add_game_object(game_objects.UI.UI(self.player1, self.player2))
         self.player1.name = "Player 1 ({})".format(player1_name)
         self.player2.name = "Player 2 ({})".format(player2_name)
+
+        sound = pygame.mixer.Sound(self.manager.root_path + "/src/resources/menu/Juhani Junkala [Retro Game Music Pack] Level 1.wav")
+        if pygame.mixer.get_busy():
+            pygame.mixer.stop()
+        sound.play(loops=-1)
+
 
     def flip_players(self):
         """orients the players transforms so
