@@ -14,10 +14,10 @@ class StartMenu(engine.scene.Scene):
     sound = None
 
     def __init__(self, manager):
-        super(StartMenu, self).__init__("Start Menu", "/src/resources/levels/StartMenu.png", set_active=True)
+        super(StartMenu, self).__init__("Start Menu", "/src/resources/menu/Title Screen.png", set_active=True)
         g = engine.game_object.GameObject("prompt", set_active=True)
         g.add_component(engine.transform.Transform(x=200, y=100))
-        g.add_component(engine.sprite.Sprite("/src/resources/misc/StartPrompt.png", (0, 0), (512, 256), 1))
+        #g.add_component(engine.sprite.Sprite("/src/resources/menu/Title Screen.png", (0, 0), (512, 256), 1))
         self.add_game_object(g)
         self.manager = manager
 
