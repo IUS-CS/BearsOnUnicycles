@@ -56,25 +56,25 @@ class CharacterSelect(engine.scene.Scene):
     def update_player1_current_selection_right(self):
         if self.current_char1 == 0:
             self.current_char1 += 1
-            self.player1.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
+            self.player1.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
         elif self.current_char1 == 1:
             self.current_char1 += 1
-            self.player1.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
+            self.player1.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
         elif self.current_char1 == 2:
             self.current_char1 += 1
-            self.player1.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
+            self.player1.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
         elif self.current_char1 == 3:
             self.current_char1 += 1
-            self.player1.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
+            self.player1.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
         elif self.current_char1 == 4:
             self.current_char1 += 1
-            self.player1.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
+            self.player1.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
         elif self.current_char1 == 5:
             self.current_char1 += 1
-            self.player1.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
+            self.player1.move(POSITIONS["Newton"][0], POSITIONS["Newton"][1])
         elif self.current_char1 == 6:
             self.current_char1 = 0
-            self.player1.move(POSITIONS["Newton"][0], POSITIONS["Newton"][1])
+            self.player1.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
 
     def update_player1_current_selection_left(self):
         if self.current_char1 == 0:
@@ -82,45 +82,45 @@ class CharacterSelect(engine.scene.Scene):
             self.player1.move(POSITIONS["Newton"][0], POSITIONS["Newton"][1])
         elif self.current_char1 == 1:
             self.current_char1 -= 1
-            self.player1.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
+            self.player1.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
         elif self.current_char1 == 2:
             self.current_char1 -= 1
-            self.player1.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
+            self.player1.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
         elif self.current_char1 == 3:
             self.current_char1 -= 1
-            self.player1.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
+            self.player1.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
         elif self.current_char1 == 4:
             self.current_char1 -= 1
-            self.player1.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
+            self.player1.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
         elif self.current_char1 == 5:
             self.current_char1 -= 1
-            self.player1.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
+            self.player1.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
         elif self.current_char1 == 6:
             self.current_char1 -= 1
-            self.player1.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
+            self.player1.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
 
     def update_player2_current_selection_right(self):
         if self.current_char2 == 0:
             self.current_char2 += 1
-            self.player2.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
+            self.player2.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
         elif self.current_char2 == 1:
             self.current_char2 += 1
-            self.player2.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
+            self.player2.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
         elif self.current_char2 == 2:
             self.current_char2 += 1
-            self.player2.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
+            self.player2.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
         elif self.current_char2 == 3:
             self.current_char2 += 1
-            self.player2.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
+            self.player2.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
         elif self.current_char2 == 4:
             self.current_char2 += 1
-            self.player2.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
+            self.player2.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
         elif self.current_char2 == 5:
             self.current_char2 += 1
-            self.player2.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
+            self.player2.move(POSITIONS["Newton"][0], POSITIONS["Newton"][1])
         elif self.current_char2 == 6:
             self.current_char2 = 0
-            self.player2.move(POSITIONS["Newton"][0], POSITIONS["Newton"][1])
+            self.player2.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
 
     def update_player2_current_selection_left(self):
         if self.current_char2 == 0:
@@ -131,22 +131,19 @@ class CharacterSelect(engine.scene.Scene):
             self.player2.move(POSITIONS["Curie"][0], POSITIONS["Curie"][1])
         elif self.current_char2 == 2:
             self.current_char2 -= 1
-            self.player2.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
+            self.player2.move(POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
         elif self.current_char2 == 3:
             self.current_char2 -= 1
-            self.player2.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
+            self.player2.move(POSITIONS["Hawking"][0], POSITIONS["Hawking"][1])
         elif self.current_char2 == 4:
             self.current_char2 -= 1
-            self.player2.move(POSITIONS["Newton"][0], POSITIONS["Newton"][1])
+            self.player2.move(POSITIONS["Pythagoras"][0], POSITIONS["Pythagoras"][1])
         elif self.current_char2 == 5:
             self.current_char2 -= 1
-            self.player2.move(262, 74)
+            self.player2.move(POSITIONS["Einstein"][0], POSITIONS["Einstein"][1])
         elif self.current_char2 == 6:
             self.current_char2 -= 1
-            self.player2.move(52, 74)
-        elif self.current_char2 < 0:
-            self.current_char2 = 6
-            self.player2.move(587, 257)
+            self.player2.move(POSITIONS["Tesla"][0], POSITIONS["Tesla"][1])
 
     def update(self):
         super(CharacterSelect, self).update()
