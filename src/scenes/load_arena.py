@@ -12,12 +12,12 @@ class LoadArena(engine.scene.Scene):
     activated = False  # have we started loading the scene?
 
     def __init__(self, manager, background, player1_name, player2_name, UI=False):
-        super(LoadArena, self).__init__("Load Arena", "/src/resources/levels/Loading.png", set_active=True)
+        super(LoadArena, self).__init__("Load Arena", "/src/resources/levels/GreenBackGround.png", set_active=True)
         self.manager = manager
         self.manager.add_scene(scenes.arena.Arena(manager, background, player1_name, player2_name, UI))
         g = engine.game_object.GameObject("buffer", set_active=True)
         g.add_component(engine.transform.Transform())
-        g.add_component(engine.sprite.Sprite("/src/resources/levels/Loading.png", (0, 0), (960, 540), 0))
+        g.add_component(engine.sprite.Sprite("/src/resources/levels/LoadingTutorial.png", (0, 50), (800, 500), 1)) #todo this needs to animate
         self.add_game_object(g)
         self.activated = False
 
