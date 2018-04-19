@@ -1,8 +1,7 @@
-
 # File: selection_controller.py
 # Authors: BearsOnUnicycles
-# Since: 4/7/18
-# This is the base class for all characters in the game and should be inherited from for each individual character
+# Since: 4/16/18
+# This is the base class for the selection boxes
 
 
 import engine
@@ -32,14 +31,6 @@ class State:
         self.counter += 1
 
 
-MAX_HEALTH = 100
-LP_DAMAGE = 5
-HP_DAMAGE = 10
-LP_FRAMES = 2
-HP_FRAMES = 4
-BLOWBACK = 25  # pixels per frame
-
-
 class SelectionControlller(engine.game_object.GameObject):
 
     transform = None
@@ -53,44 +44,17 @@ class SelectionControlller(engine.game_object.GameObject):
     current = None
     next = None
 
-    ignore_input = False  # ignore input until the state changes
-
-    fall_speed = 25  # pixels per frame
-    jump_frames = 10  # how long jump raises the character
-    jump_counter = 1
-    walk_speed = 10  # pixels per frame
-
-    ignore_frames = 0
-    ignore_frames_counter = 0
-
-    grounded = False
-    crouched = False
-    walking = False
-    jumping = True
-    blocking = False
-    attacking = False
-
     current_state = None
 
-    def __init__(self, name, pos, size, collision_manager):
+    def __init__(self, name, pos, size):
         super(SelectionControlller, self).__init__(name, set_active=True)
         self.size = size
         self.transform = t = engine.transform.Transform(pos[0], pos[1])
         self.add_component(t)
         self.animator = a = engine.animator.Animator()
         self.add_component(a)
-
         self.states = {}
-        self.walking = False
         self.input = None
-        self.ignore_frames = 0
-        self.ignore_frames_counter = 0
-        self.blocking = False
-        self.attacking = False
-        self.damage_output = 0
-        self.attack_frames = 0
-        self.attack_frames_counter = 0
-        self.health = MAX_HEALTH
 
     def load_animations(self, anim_list):
         """Loads all a characters animations
@@ -127,6 +91,8 @@ class SelectionControlller(engine.game_object.GameObject):
         self.animator.set_current(state)
 
     def get_state(self):
+        """returns the current active
+        state"""
         return self.current_state
 
     def get_input(self, key):
@@ -135,28 +101,9 @@ class SelectionControlller(engine.game_object.GameObject):
         return self.input(key)
 
     def move(self, x_coord, y_coord):
-        """moves the character from left to right"""
-        # if right:
-        #     self.transform.x += 75
-        # elif left:
-        #     self.transform.vel_x = -self.walk_speed
-        # else:
-        #     self.transform.vel_x = 0
+        """moves the selection box from left to right"""
         self.transform.x = x_coord
         self.transform.y = y_coord
-
-    def state_machine(self):
-        """
-        precedence order is from bottom to top
-        i.e. states at the bottom will override states
-        at the top so be careful of the order"""
-        # crouched
-        # if self.crouched and not (self.current.title == "crouch_punch1" or self.current.title == "crouch_punch2"):
-        #     self.change_state("crouch")
-        #     self.move()
-        if not self.crouched and self.walking and self.grounded:
-
-            self.change_state("walk")
 
     def handle_inputs(self):
         """processes inputs for this object"""
@@ -172,9 +119,7 @@ class SelectionControlller(engine.game_object.GameObject):
     def update(self):
         super(SelectionControlller, self).update()
         self.current.update()
-        self.state_machine()
-        if not self.ignore_input:
-            self.handle_inputs()
+        self.handle_inputs()
 
         if self.current.change:
             self.change_state(self.next.title)

@@ -33,8 +33,8 @@ class SelectionBox(selection_controller.SelectionControlller):
 
     jump_counter = 1
 
-    def __init__(self, pos, size, collision_manager):
-        super(SelectionBox, self).__init__("SelectionBox", pos, size, collision_manager)
+    def __init__(self, pos, size):
+        super(SelectionBox, self).__init__("SelectionBox", pos, size)
         self.load_animations(SPRITES)
         self.load_states(STATES)
 
