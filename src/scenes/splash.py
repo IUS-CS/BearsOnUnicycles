@@ -4,7 +4,7 @@
 # This file displays the splash screen and plays the splash sound
 
 
-import engine
+from src import engine
 import pygame
 
 

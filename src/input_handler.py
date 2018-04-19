@@ -20,7 +20,6 @@ class ButtonMap:
              "P1_LIGHT_KICK",
              "P1_MID_KICK",
              "P1_HEAVY_KICK",
-             "P1_PAUSE",
              "P1_ENTER"
              }
 
@@ -35,8 +34,7 @@ class ButtonMap:
                     "P1_LIGHT_KICK": pg.K_j,
                     "P1_MID_KICK": pg.K_k,
                     "P1_HEAVY_KICK": pg.K_l,
-                    "P1_PAUSE": pg.K_t,
-                    "P1_ENTER": pg.K_1,
+                    "P1_ENTER": pg.K_t,
 
                     "P2_RIGHT": pg.K_RIGHT,
                     "P2_LEFT": pg.K_LEFT,
@@ -48,7 +46,6 @@ class ButtonMap:
                     "P2_LIGHT_KICK": pg.K_q,
                     "P2_MID_KICK": pg.K_q,
                     "P2_HEAVY_KICK": pg.K_q,
-                    "P2_PAUSE": pg.K_q,
                     "P2_ENTER": pg.K_RETURN
 
                     }
@@ -62,7 +59,7 @@ class ButtonMap:
                              "P1_LIGHT_KICK": 6,
                              "P1_MID_KICK": 1,
                              "P1_HEAVY_KICK": 2,
-                             "P1_PAUSE": 9,
+                             "P1_ENTER": 9,
 
                              "P2_RIGHT": "P2_RIGHT",
                              "P2_LEFT": "P2_LEFT",
@@ -74,7 +71,7 @@ class ButtonMap:
                              "P2_LIGHT_KICK": 6,
                              "P2_MID_KICK": 1,
                              "P2_HEAVY_KICK": 2,
-                             "P2_PAUSE": 9,
+                             "P2_ENTER": 9,
                              }
 
 
@@ -180,7 +177,6 @@ class Handler:
                          "P1_LIGHT_KICK": False,
                          "P1_MID_KICK": False,
                          "P1_HEAVY_KICK": False,
-                         "P1_PAUSE": False,
                          'P1_ENTER': False,
                             }
 
@@ -194,7 +190,6 @@ class Handler:
                          "P2_LIGHT_KICK": False,
                          "P2_MID_KICK": False,
                          "P2_HEAVY_KICK": False,
-                         "P2_PAUSE": False,
                          "P1_ENTER": False,
                          }
 

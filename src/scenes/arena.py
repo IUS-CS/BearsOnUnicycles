@@ -5,7 +5,7 @@
 #       so don't f*** it up :)
 
 
-import engine, input_handler as ih, game_objects
+from src import engine, input_handler as ih, game_objects
 
 INPUT = ih.Handler()
 
@@ -14,8 +14,8 @@ CHARACTERS = {'Einstein': (game_objects.einstein, game_objects.einstein.Einstein
               "NULL": None,
               }
 
-P1_START_POS = (50, 0)
-P2_START_POS = (400, 0)
+P1_START_POS = (0, 0)
+P2_START_POS = (455, 0)
 BOUNDS = (960, 540)
 COLLIDER_SIZE = (128, 128)
 
