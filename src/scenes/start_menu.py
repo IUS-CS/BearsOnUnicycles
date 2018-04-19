@@ -37,8 +37,11 @@ class StartMenu(engine.scene.Scene):
         super(StartMenu, self).update()
         if len(input_handler.Handler().get_active_keys()) > 0:
             print("load next scene")
-
             self.manager.add_scene(scenes.character_select.CharacterSelect(self.manager,
                                                                            "/src/resources/menu/characterSelect.png",
                                                                            "box1", "box2"))
             self.manager.change_to_active("CharacterSelect")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 501c3b7... Add additional resource files

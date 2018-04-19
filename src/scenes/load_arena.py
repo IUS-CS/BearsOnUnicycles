@@ -17,9 +17,12 @@ class LoadArena(engine.scene.Scene):
         g = engine.game_object.GameObject("buffer", set_active=True)
         g.add_component(engine.transform.Transform())
 <<<<<<< HEAD
+<<<<<<< HEAD
         g.add_component(engine.sprite.Sprite("/src/resources/levels/LoadingTutorial.png", (0, 50), (800, 500),
                                              1))  # todo this needs to animate
 =======
+=======
+>>>>>>> 501c3b7... Add additional resource files
         g.add_component(engine.animator.Animator())
         '''           
                         title,       # the title of the animation
@@ -39,7 +42,10 @@ class LoadArena(engine.scene.Scene):
             (3200, 3000),
             1,
         )
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> 501c3b7... Add additional resource files
         self.add_game_object(g)
         self.activated = False
 
