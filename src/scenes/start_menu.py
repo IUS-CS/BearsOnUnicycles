@@ -4,6 +4,7 @@
 # This file creates the start menu scene, a simple title screen where the user must press a button to continue
 
 from src import engine, input_handler, scenes
+import pygame as pg
 
 
 class StartMenu(engine.scene.Scene):
@@ -11,10 +12,15 @@ class StartMenu(engine.scene.Scene):
     manager = None      # the scene manager
 
     def __init__(self, manager):
-        super(StartMenu, self).__init__("Start Menu", "/src/resources/levels/StartMenu.png", set_active=True)
+        super(StartMenu, self).__init__("Start Menu", "/src/resources/menu/Title Screen.png", set_active=True)
+        self.sound = (pg.mixer.Sound(manager.root_path + "/src/resources/menu/Juhani Junkala [Retro Game Music Pack] Level 1.wav"))
+        self.sound.play(25)
+
+
+
         g = engine.game_object.GameObject("prompt", set_active=True)
         g.add_component(engine.transform.Transform(x=200, y=100))
-        g.add_component(engine.sprite.Sprite("/src/resources/misc/StartPrompt.png", (0, 0), (512, 256), 1))
+        #g.add_component(engine.sprite.Sprite("/src/resources/levels/StartMenu.png", (0, 0), (960, 540), 1))
         self.add_game_object(g)
         self.manager = manager
 
@@ -23,7 +29,7 @@ class StartMenu(engine.scene.Scene):
         if len(input_handler.Handler().get_active_keys()) > 0:
 
             print("load next scene")
-            '''
+
             self.manager.add_scene(scenes.character_select.CharacterSelect(self.manager,
                                                                            "/src/resources/menu/characterSelect.png",
                                                                            "box1", "box2"))
@@ -33,5 +39,8 @@ class StartMenu(engine.scene.Scene):
             self.manager.add_scene(scenes.load_arena.LoadArena(self.manager, "/src/resources/levels/LondonAlley.jpg",
 
                                                                "Newton", "Hawking", UI=True))
+
             self.manager.change_to_active("Load Arena")
 
+
+            '''

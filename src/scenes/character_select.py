@@ -13,13 +13,14 @@ BOXES = {'box1': (game_objects.selection_box, game_objects.selection_box.Selecti
               "NULL": None,
               }
 CHARACTERS = ["Curie", "Darwin", "Hawking", "Pythagoras", "Einstein", "Tesla", "Newton"]
-POSITIONS = { "Curie": (52, 74), "Darwin": (262, 74), "Hawking": (472, 74), "Pythagoras": (687, 74),
-              "Einstein": (159, 257), "Tesla": (370, 257), "Newton":(587, 257)}
+POSITIONS = { "Curie": (47, 70), "Darwin": (269, 70), "Hawking": (493, 70), "Pythagoras": (725, 72),
+              "Einstein": (159, 267), "Tesla": (383, 267), "Newton": (613, 265)}
 
 
 BOX1_START = (POSITIONS["Curie"][0], POSITIONS["Curie"][1])
 BOX2_START = (POSITIONS["Darwin"][0], POSITIONS["Darwin"][1])
-SIZE = (128,128)
+SIZE = (128, 128)
+
 
 class CharacterSelect(engine.scene.Scene):
 
@@ -34,8 +35,7 @@ class CharacterSelect(engine.scene.Scene):
         super(CharacterSelect, self).__init__("CharacterSelect", background, set_active=True)
         self.manager = manager
         self.box1 = BOXES[box1_name][1](BOX1_START, SIZE)
-
-        self.box2 = BOXES[box2_name][1](BOX2_START, SIZE)
+        self.box2 = BOXES[box2_name][1](BOX2_START, SIZE, player2=True)
 
         if self.box2 is not None:
             self.add_game_object(self.box1)
@@ -46,6 +46,21 @@ class CharacterSelect(engine.scene.Scene):
 
         self.box1.name = "Player 1 ({})".format(box1_name)
         self.box2.name = "Player 2 ({})".format(box2_name)
+
+        player1_name = engine.game_object.GameObject("P1_name", set_active=True)
+        player1_name.add_component(engine.transform.Transform(x=25, y=450))
+      #  player1_name.add_component(engine.sprite.Sprite("/src/resources/misc/player1_name.png", (0, 0), (300, 50), 1))
+        self.add_game_object(player1_name)
+
+        player2_name = engine.game_object.GameObject("P2_name", set_active=True)
+        player2_name.add_component(engine.transform.Transform(x=600, y=450))
+       # player2_name.add_component(engine.sprite.Sprite("/src/resources/misc/player2_name.png", (0, 0), (300, 50), 1))
+        self.add_game_object(player2_name)
+
+        choose = engine.game_object.GameObject("Choose", set_active=True)
+        choose.add_component(engine.transform.Transform(x=175))
+        #choose.add_component(engine.sprite.Sprite("/src/resources/misc/choose.png", (0, 0), (600, 100), 1))
+        self.add_game_object(choose)
 
     def update_box1_current_selection_right(self):
         if self.current_char1 == 0:
@@ -154,15 +169,18 @@ class CharacterSelect(engine.scene.Scene):
         elif self.box2.get_state() == "LEFT":
             self.update_box2_current_selection_left()
 
-        if self.box2.get_state() == "ENTER":
+        if self.box1.get_state() == "ENTER":
             self.enter_pressed +=1
 
         if self.box2.get_state() == "ENTER":
             self.enter_pressed +=1
 
-        if (self.enter_pressed == 2):
-            self.manager.add_scene(scenes.load_arena.LoadArena(self.manager, "/src/resources/levels/LondonAlley.jpg",
-                                                               CHARACTERS[self.current_char1], CHARACTERS[self.current_char2], UI=True))
+        if self.enter_pressed == 2:
+            self.manager.add_scene(scenes.load_arena.LoadArena(self.manager,
+                                                               "/src/resources/levels/LondonAlley.jpg",
+                                                               CHARACTERS[self.current_char1],
+                                                               CHARACTERS[self.current_char2],
+                                                               UI=True))
             self.manager.change_to_active("Load Arena")
 
 

@@ -3,7 +3,6 @@
 # Since: 4/17/18
 # this file defines the character selection box logic
 
-
 from . import selection_controller
 
 """
@@ -16,26 +15,31 @@ format for animation loading is:
         sheet_size,  # the dimensions of the sprite sheet
         priority)
 """
-SIZE_X = 118
-SIZE_Y = 118
+SIZE_X = 186
+SIZE_Y = 186
 SPRITES = [
     ("idle", (40, 40), 1, (SIZE_X, SIZE_Y), "/src/resources/misc/rect.png",
-     (198, 198), 1)
+     (256, 256), 1),
+]
+SPRITES2 = [
+    ("idle", (40, 40), 1, (SIZE_X, SIZE_Y), "/src/resources/misc/rect.png",
+     (256, 256), 1),
 ]
 
-
 STATES = [  # (title, next, frames)
-    ("idle", "idle", 1)
+    ("idle", "idle", 1),
+
 ]
 
 
 class SelectionBox(selection_controller.SelectionControlller):
 
-    jump_counter = 1
-
-    def __init__(self, pos, size):
+    def __init__(self, pos, size, player2=False):
         super(SelectionBox, self).__init__("SelectionBox", pos, size)
-        self.load_animations(SPRITES)
+        if not player2:
+            self.load_animations(SPRITES)
+        else:
+            self.load_animations(SPRITES2)
         self.load_states(STATES)
 
     def update(self):

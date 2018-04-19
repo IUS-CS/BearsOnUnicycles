@@ -16,13 +16,13 @@ class Splash(engine.scene.Scene):
     sound = None
 
     def __init__(self, manager, timer):
-        super(Splash, self).__init__("Splash", "/src/resources/menu/EditedUnicycle.jpg", set_active=True)
+        super(Splash, self).__init__("Splash", "/src/resources/menu/960Unicycle.png", set_active=True)
         self.frame_timer = 0
         self.time_limit = timer
         self.manager = manager
         self.sound = (pygame.mixer.Sound(manager.root_path + "/src/resources/menu/bearz.wav"))
         self.sound.play()
-        self.sound.fadeout(4000)
+
 
 
     def update(self):

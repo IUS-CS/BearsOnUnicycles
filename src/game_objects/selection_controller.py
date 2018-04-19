@@ -4,7 +4,7 @@
 # This is the base class for the selection boxes
 
 
-import engine
+from src import engine
 
 
 class State:
