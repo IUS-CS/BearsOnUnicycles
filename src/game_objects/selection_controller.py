@@ -4,7 +4,7 @@
 # This is the base class for the selection boxes
 
 
-import engine
+from src import engine
 
 
 class State:
@@ -45,6 +45,10 @@ class SelectionControlller(engine.game_object.GameObject):
     next = None
 
     current_state = None
+
+    input_buffer = False
+    buffer_frames = 3
+    buffer_frames_count = 0
 
     def __init__(self, name, pos, size):
         super(SelectionControlller, self).__init__(name, set_active=True)
@@ -108,10 +112,16 @@ class SelectionControlller(engine.game_object.GameObject):
     def handle_inputs(self):
         """processes inputs for this object"""
         if self.input("RIGHT"):
+            self.input_buffer = True
+            self.buffer_frames_count = 1
             self.current_state = "RIGHT"
         elif self.input("LEFT"):
+            self.input_buffer = True
+            self.buffer_frames_count = 1
             self.current_state = "LEFT"
         elif self.input("ENTER"):
+            self.input_buffer = True
+            self.buffer_frames_count = 1
             self.current_state = "ENTER"
         else:
             self.current_state = "IDLE"
@@ -119,9 +129,14 @@ class SelectionControlller(engine.game_object.GameObject):
     def update(self):
         super(SelectionControlller, self).update()
         self.current.update()
-        self.handle_inputs()
+        if not self.input_buffer:
+            self.handle_inputs()
+        else:
+            self.current_state = "IDLE"
 
         if self.current.change:
             self.change_state(self.next.title)
 
+        self.input_buffer = self.buffer_frames >= self.buffer_frames_count
+        self.buffer_frames_count += 1
 
