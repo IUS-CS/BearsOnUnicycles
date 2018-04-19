@@ -35,7 +35,7 @@ class CharacterSelect(engine.scene.Scene):
         self.manager = manager
         self.box1 = BOXES[box1_name][1](BOX1_START, SIZE)
 
-        self.box2 = BOXES[box2_name][1](BOX1_START, SIZE)
+        self.box2 = BOXES[box2_name][1](BOX2_START, SIZE)
 
         if self.box2 is not None:
             self.add_game_object(self.box1)

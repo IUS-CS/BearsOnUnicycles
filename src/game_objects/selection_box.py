@@ -1,7 +1,7 @@
 # File: selection_box.py
 # Author: BearsOnUnicycles
-# Since: 4/15/18
-# this file defines the character Albert Einstein's animations, logic
+# Since: 4/17/18
+# this file defines the character selection box logic
 
 
 from . import selection_controller
