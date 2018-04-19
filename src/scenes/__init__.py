@@ -1,1 +1,1 @@
-from . import start_menu, splash, arena, load_arena
+from . import start_menu, splash, arena, load_arena, win_screen

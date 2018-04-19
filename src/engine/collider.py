@@ -18,15 +18,15 @@ class Collider(ct.Component):
     transform = None
     _start_lowerP = (0, 0)
     _start_upperP = (0, 0)
-    _w = 0
-    _h = 0
+    w = 0
+    h = 0
 
     def __init__(self, lowerP, upperP, cfunc):
         super(Collider, self).__init__(set_active=True)
         self._start_lowerP = self.lowerP = lowerP
         self._start_upperP = self.upperP = upperP
-        self._w = abs(self.lowerP[0] - self.upperP[0])
-        self._h = abs(self.lowerP[1] - self.upperP[1])
+        self.w = abs(self.lowerP[0] - self.upperP[0])
+        self.h = abs(self.lowerP[1] - self.upperP[1])
         self.colliding = False
         self.collisions = []
         self.cfunc = cfunc
@@ -43,9 +43,9 @@ class Collider(ct.Component):
 
     def update(self):
         self.transform = self.game_object.get_component(transform.Transform)
-        self.lowerP = (self.transform.x, self._h + self.transform.y)
-        self.upperP = (self._w + self.transform.x, self.transform.y)
+        self.lowerP = (self.transform.x, self.h + self.transform.y)
+        self.upperP = (self.w + self.transform.x, self.transform.y)
         scale = self.transform.scale
-        self._w = self._w * scale
-        self._h = self._h * scale
+        self.w = self.w * scale
+        self.h = self.h * scale
         self.check_collision()

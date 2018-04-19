@@ -5,12 +5,15 @@
 #       so don't f*** it up :)
 
 
-from src import engine, input_handler as ih, game_objects
+from src import engine, input_handler as ih, game_objects, scenes
 
 INPUT = ih.Handler()
 
 CHARACTERS = {'Einstein': (game_objects.einstein, game_objects.einstein.Einstein),
               "Curie": (game_objects.curie, game_objects.curie.Curie),
+              "Darwin": (game_objects.darwin, game_objects.darwin.Darwin),
+              "Hawking": (game_objects.hawking, game_objects.hawking.Hawking),
+              "Newton": (game_objects.newton, game_objects.newton.Newton),
               "NULL": None,
               }
 
@@ -18,6 +21,7 @@ P1_START_POS = (50, 0)
 P2_START_POS = (400, 0)
 BOUNDS = (960, 540)
 COLLIDER_SIZE = (128, 128)
+
 
 class Arena(engine.scene.Scene):
 
@@ -63,10 +67,12 @@ class Arena(engine.scene.Scene):
         """Checks to see if anyone won"""
         if self.player1.health <= 0:
             print("Player 1 Wins!")
-            self.manager.change_to_active("Start Menu")
+            self.manager.add_scene(scenes.win_screen.WinScreen(self.manager))
+            self.manager.change_to_active("Win Screen")
         if self.player2.health <= 0:
             print("Player 2 Wins!")
-            self.manager.change_to_active("Start Menu")
+            self.manager.add_scene(scenes.win_screen.WinScreen(self.manager))
+            self.manager.change_to_active("Win Screen")
 
     def update(self):
         self.flip_players()
