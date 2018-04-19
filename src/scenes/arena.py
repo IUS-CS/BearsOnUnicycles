@@ -5,7 +5,7 @@
 #       so don't f*** it up :)
 
 
-from src import engine, input_handler as ih, game_objects
+import engine, input_handler as ih, game_objects
 
 INPUT = ih.Handler()
 

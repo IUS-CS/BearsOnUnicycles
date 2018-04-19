@@ -3,7 +3,7 @@
 # Since: 4/17/18
 # This is the loading screen for the arena
 
-from src import engine, scenes
+import engine, scenes
 
 
 class LoadArena(engine.scene.Scene):

@@ -4,7 +4,7 @@
 # This module controls the user interface for the arena
 
 from . import health_bar
-from src import engine
+import engine
 
 class UI(engine.game_object.GameObject):
 

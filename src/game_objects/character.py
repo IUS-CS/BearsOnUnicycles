@@ -3,7 +3,6 @@
 # Since: 4/7/18
 # This is the base class for all characters in the game and should be inherited from for each individual character
 
-
 from src import engine
 
 
