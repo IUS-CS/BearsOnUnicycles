@@ -4,9 +4,9 @@
 # This file calls all the main components of the game
 import os
 import pygame
-import scenes, game_objects
-import input_handler as ih
-import scene_manager as sm
+from src import scenes, game_objects
+from src import input_handler as ih
+from src import scene_manager as sm
 import threading
 
 # =================================================================================

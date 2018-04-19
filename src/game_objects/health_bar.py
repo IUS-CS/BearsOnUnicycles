@@ -3,7 +3,7 @@
 # Since: 4/16/18
 # This module defines the logic for the health bar for each character
 
-import engine
+from src import engine
 from . import character, nametag
 
 

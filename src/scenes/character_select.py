@@ -4,7 +4,7 @@
 # This module handles the character selection screen, and once both players have select
 # it then loads the arena with the chosen characters
 
-import engine, input_handler as ih, game_objects, scenes
+from src import engine, input_handler as ih, game_objects, scenes
 
 INPUT = ih.Handler()
 
@@ -174,7 +174,6 @@ def get_input(player_num, input):
 
 def box1_input(input):
     """uses above to return input to player 1"""
-
     return get_input(1, input)
 
 

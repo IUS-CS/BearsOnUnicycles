@@ -3,7 +3,7 @@
 # Since: 3/25/28
 # This file creates the start menu scene, a simple title screen where the user must press a button to continue
 
-import engine, input_handler, scenes
+from .. import engine, input_handler, scenes
 
 
 class StartMenu(engine.scene.Scene):

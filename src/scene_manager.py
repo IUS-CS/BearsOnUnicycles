@@ -4,7 +4,7 @@
 # This file handles the loading and unloading of scenes by connecting the active scene to the various systems of the
 #   engine
 
-import engine
+from src import engine
 import threading
 
 

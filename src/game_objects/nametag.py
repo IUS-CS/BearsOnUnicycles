@@ -3,7 +3,7 @@
 # Since: 4/17/18
 # This module displays a nametag in the arena scene
 
-import engine
+from src import engine
 
 
 SPRITE_MAP = {"Curie": "/src/resources/misc/curie_nametag.png",
