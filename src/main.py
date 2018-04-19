@@ -38,7 +38,7 @@ SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 fo
 #   This is where you would load level modules
 # =================================================================================
 
-MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
+#MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
 MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
 
 # =================================================================================
