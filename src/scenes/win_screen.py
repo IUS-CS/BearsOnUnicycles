@@ -4,7 +4,6 @@
 # This module displays the screen after a player has won in Arena
 
 from src import engine
-from . import start_menu
 
 
 class WinScreen(engine.scene.Scene):
@@ -14,8 +13,13 @@ class WinScreen(engine.scene.Scene):
     timer_bool = False
     manager = None
 
-    def __init__(self, manager, timer=150):
-        super(WinScreen, self).__init__("Win Screen", "src/resources/levels/win_screen.png", set_active=True)
+    def __init__(self, manager, timer=150, player1=False):
+        if player1:
+            super(WinScreen, self).__init__("Win Screen", "/src/resources/misc/winscreen_player1.png",
+                                            set_active=True)
+        else:
+            super(WinScreen, self).__init__("Win Screen", "/src/resources/misc/winscreen_player2.png",
+                                            set_active=True)
         self.timer = timer
         self.timer_count = 0
         self.timer_bool = False

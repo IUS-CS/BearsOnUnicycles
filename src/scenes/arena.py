@@ -66,12 +66,12 @@ class Arena(engine.scene.Scene):
     def win_condition(self):
         """Checks to see if anyone won"""
         if self.player1.health <= 0:
-            print("Player 1 Wins!")
+            print("Player 2 Wins!")
             self.manager.add_scene(scenes.win_screen.WinScreen(self.manager))
             self.manager.change_to_active("Win Screen")
         if self.player2.health <= 0:
-            print("Player 2 Wins!")
-            self.manager.add_scene(scenes.win_screen.WinScreen(self.manager))
+            print("Player 1 Wins!")
+            self.manager.add_scene(scenes.win_screen.WinScreen(self.manager, player1=True))
             self.manager.change_to_active("Win Screen")
 
     def update(self):
