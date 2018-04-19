@@ -4,10 +4,9 @@
 # This file calls all the main components of the game
 import os
 import pygame
-from src import scenes, game_objects
+from src import scenes
 from src import input_handler as ih
 from src import scene_manager as sm
-import threading
 
 # =================================================================================
 # Static Variables section
@@ -16,7 +15,7 @@ import threading
 # =================================================================================
 pygame.init()
 SIZE = (960, 540)
-FPS = 24
+FPS = 30
 PATH = os.path.abspath("..")
 INPUT = ih.Handler()
 

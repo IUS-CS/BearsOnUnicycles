@@ -31,5 +31,7 @@ class StartMenu(engine.scene.Scene):
 
             '''
             self.manager.add_scene(scenes.load_arena.LoadArena(self.manager, "/src/resources/levels/LondonAlley.jpg",
-                                                           "Einstein", "Curie", UI=True))
+
+                                                               "Newton", "Hawking", UI=True))
             self.manager.change_to_active("Load Arena")
+
