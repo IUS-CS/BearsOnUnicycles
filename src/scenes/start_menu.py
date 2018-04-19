@@ -44,4 +44,7 @@ class StartMenu(engine.scene.Scene):
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
+>>>>>>> 501c3b7... Add additional resource files
+=======
 >>>>>>> 501c3b7... Add additional resource files

@@ -42,9 +42,12 @@ SOUND = pygame.mixer.init(channels=4)  # 1 for music, 2 for FX, 3 for menu, 4 fo
 MANAGER.add_scene(scenes.splash.Splash(MANAGER, 5 * FPS))  # 5 seconds
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 MANAGER.add_scene(scenes.start_menu.StartMenu(MANAGER))
 =======
 >>>>>>> master
+=======
+>>>>>>> 501c3b7... Add additional resource files
 =======
 >>>>>>> 501c3b7... Add additional resource files
 
