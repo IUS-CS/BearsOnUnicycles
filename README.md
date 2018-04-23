@@ -7,11 +7,6 @@ A fighting game with history's greatest heroes
 ### Overview
 Super Ultra Melees Of History (SUMOH) is a 1 on 1 2D fighting game which pits some of history's greatest figures against each other in a no-holds-barred brawl. It is built in python using the pygame library and is scheduled for full release on April 25th, 2018. SUMOH is inspired by popular fighting games of the 90's and early 2000's such as *Street Fighter*, *Marvel vs. Capcom*, and *Killer Instinct*.
 
-### Credit: 
-
-**Spritesheets:**
-- All spritesheets were used as test characters and were used from  Diego Sanches, a graphic designer who designed these sprite for Superinteressante, a Brazilian magazine. Diego's work can be found at: [diegosanches.com](diegosanches.com) 
-
 ### Implementation
 This project will be written, tested, and deployed in python. 
 
@@ -32,3 +27,8 @@ documentation involved.
 Travis CI will be used for the project to continuously test code
 via unit testing as well as other class-level and build level tests
 that will be passed before changes are allowed to be made.
+
+### Credit:
+
+## Spritesheets:
+- All spritesheets were used as test characters and were used from Diego Sanches, a graphic designer who designed these sprite for Superinteressante, a Brazilian magazine. Diego's work can be found at: diegosanches.com
