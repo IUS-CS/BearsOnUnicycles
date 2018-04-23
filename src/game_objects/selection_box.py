@@ -22,7 +22,11 @@ SPRITES = [
      (256, 256), 1),
 ]
 SPRITES2 = [
+<<<<<<< HEAD
     ("idle", (40, 40), 1, (SIZE_X, SIZE_Y), "/src/resources/misc/rect.png",
+=======
+    ("idle", (40, 40), 1, (SIZE_X, SIZE_Y), "/src/resources/misc/rect2.png",
+>>>>>>> master
      (256, 256), 1),
 ]
 

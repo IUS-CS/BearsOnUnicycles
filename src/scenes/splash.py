@@ -4,8 +4,9 @@
 # This file displays the splash screen and plays the splash sound
 
 
-from src import engine
 import pygame
+
+from src import engine, scenes
 
 
 class Splash(engine.scene.Scene):
@@ -20,7 +21,7 @@ class Splash(engine.scene.Scene):
         self.frame_timer = 0
         self.time_limit = timer
         self.manager = manager
-        self.sound = (pygame.mixer.Sound(manager.root_path + "/src/resources/menu/bearz.wav"))
+        self.sound = pygame.mixer.Sound(manager.root_path + "/src/resources/menu/bearz.wav")
         self.sound.play()
 
 
@@ -28,4 +29,5 @@ class Splash(engine.scene.Scene):
     def update(self):
         self.frame_timer += 1
         if self.frame_timer == self.time_limit:
+            self.manager.add_scene(scenes.start_menu.StartMenu(self.manager))
             self.manager.change_to_active("Start Menu")

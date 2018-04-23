@@ -11,7 +11,7 @@ SPRITE_MAP = {"Curie": "/src/resources/misc/curie_nametag.png",
               "Darwin": "/src/resources/misc/darwin_nametag.png",
               "Hawking": "/src/resources/misc/hawking_nametag.png",
               "Newton": "/src/resources/misc/newton_nametag.png",
-              "Pythag": "/src/resources/misc/pythag_nametag.png",
+              "Pythagoras": "/src/resources/misc/pythag_nametag.png",
               "Tesla": "/src/resources/misc/tesla_nametag.png",
               }
 

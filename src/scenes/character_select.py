@@ -49,17 +49,29 @@ class CharacterSelect(engine.scene.Scene):
 
         player1_name = engine.game_object.GameObject("P1_name", set_active=True)
         player1_name.add_component(engine.transform.Transform(x=25, y=450))
+<<<<<<< HEAD
       #  player1_name.add_component(engine.sprite.Sprite("/src/resources/misc/player1_name.png", (0, 0), (300, 50), 1))
+=======
+        player1_name.add_component(engine.sprite.Sprite("/src/resources/misc/player1_name.png", (0, 0), (300, 50), 1))
+>>>>>>> master
         self.add_game_object(player1_name)
 
         player2_name = engine.game_object.GameObject("P2_name", set_active=True)
         player2_name.add_component(engine.transform.Transform(x=600, y=450))
+<<<<<<< HEAD
        # player2_name.add_component(engine.sprite.Sprite("/src/resources/misc/player2_name.png", (0, 0), (300, 50), 1))
+=======
+        player2_name.add_component(engine.sprite.Sprite("/src/resources/misc/player2_name.png", (0, 0), (300, 50), 1))
+>>>>>>> master
         self.add_game_object(player2_name)
 
         choose = engine.game_object.GameObject("Choose", set_active=True)
         choose.add_component(engine.transform.Transform(x=175))
+<<<<<<< HEAD
         #choose.add_component(engine.sprite.Sprite("/src/resources/misc/choose.png", (0, 0), (600, 100), 1))
+=======
+        choose.add_component(engine.sprite.Sprite("/src/resources/misc/choose.png", (0, 0), (600, 100), 1))
+>>>>>>> master
         self.add_game_object(choose)
 
     def update_box1_current_selection_right(self):
