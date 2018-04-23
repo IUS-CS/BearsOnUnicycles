@@ -2,8 +2,10 @@
 # Authors: BearsOnUnicycles
 # Since: 3/24/18
 # This file renders the animations for a game object using pygame
-import pygame
 import os
+
+import pygame
+
 from . import sprite_renderer, animator, transform
 
 
@@ -53,6 +55,8 @@ class AnimationPlayer:
     def __init__(self, sc, surface):
         self.sc = sc
         self.surface = surface
+        self.sprites = []
+        self.game_objects = {}
         for g in sc.game_objects:
             self.load_anim(g)
             for ga in g.children:   # recursively load children
