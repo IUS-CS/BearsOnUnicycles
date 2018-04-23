@@ -7,20 +7,9 @@ animation_controller module
 
 
 	animation_controller.AnimationPlayer(sc, surface) 
-	game_objects = {}
-
-	load_anim(game_object)
-
-	sc = None
 	
-	sprites = []
 
-	surface = None
-
-	update()
-
-animation_controller.LoadableAnimator(path, anim, title)
----
+**animation_controller.LoadableAnimator(path, anim, title)**
 
 Bases: pygame.sprite.Group
 
@@ -84,7 +73,7 @@ active = False
 
 		title = '' 
 
-**animator.Animator
+**animator.Animator**
 
 
 Bases: src.engine.component.Component
@@ -110,14 +99,14 @@ Bases: src.engine.component.Component
 		- 
 	update() 
 
-**animator.AnimatorError
+**animator.AnimatorError**
 
 
 Bases: exceptions.Exception
 
-**engine.collider
+**engine.collider**
 
-**This defines the collider classes used in the engine**
+- This defines the collider classes used in the engine
 	
 	class src.engine.collider.Collider(lowerP, upperP, cfunc)
 	
@@ -134,7 +123,7 @@ engine.collision_manager module
 
 **engine.collision_manager.CollisionManager(sc)
 
-..*This file runs the logic of collisions with collider objects through the pygame engine and updates during the physics cycle
+- This file runs the logic of collisions with collider objects through the pygame engine and updates during the physics cycle
 
 	check_collisions(g) 
 		- checks if a game object is colliding with another game object and returns the result of those collisions
@@ -144,7 +133,8 @@ engine.collision_manager module
 		
 	update() 
 
-###engine.component module###
+engine.component module
+---
 
 	component.Component(set_active=False) 
 
@@ -153,7 +143,8 @@ engine.collision_manager module
 	update() 
 		- Perform any logic for one frame
 		- 
-##engine.game_object module##
+**engine.game_object module**
+	
 	src.engine.game_object.GameObject(name, set_active=False, parent=None) 
 
 	add_child(child) 
@@ -185,65 +176,49 @@ engine.collision_manager module
 	update() 
 		- perform any logic on every child and component for one frame REQUIRES TRANSFORM
 
-###engine.game_object.GameObjectError###
+**engine.game_object.GameObjectError**
 
 Bases: exceptions.BaseException
 
-##engine.scene module##
-**This is the template file for all loadable scenes in the game and stores all the game_objects it controls**
+##engine.scene module
+---
 
-	src.engine.scene.Scene(title, background, set_active=False) 
+- This is the template file for all loadable scenes in the game and stores all the game_objects it controls**
 
-	add_game_object(game_object) 
-		- Adds a game obejct to the scene
+	
+		src.engine.scene.Scene(title, background, set_active=False) 
 
-	get_object_by_name(name) 
-		- gets a game obejct by name in the scene and throws an error if not found
+		add_game_object(game_object) 
+			- Adds a game obejct to the scene
 
-	get_objects_of_type(oType) 
-		- gets a list of game_objects a specified type
+		get_object_by_name(name) 
+			- gets a game obejct by name in the scene and throws an error if not found
 
-	remove_game_object_by_name(name) 
-		- Removes a game_object from the scene throws an error if not found
+		get_objects_of_type(oType) 
+			- gets a list of game_objects a specified type
 
-	set_active(active) 
+		remove_game_object_by_name(name) 
+			- Removes a game_object from the scene throws an error if not found
 
-	update() 
-		- perform any logic for one frame on everything in the scene
+		set_active(active) 
 
-###src.engine.scene.SceneError###
+		update() 
+			- perform any logic for one frame on everything in the scene
 
-**This file is the basic wrapper for a sprite in the system.**
 
-Bases: exceptions.Exception
+engine.sprite_renderer module
+---
 
-- Exceptions that can be thrown from scene
-src.engine.sprite module 
-		
-Bases: src.engine.component.Component
-
-	engine.sprite.Sprite(path, coords, size, rp) 
-
-	replace(spr) 
-
-	set_flip(val) 
-		- sets the flip bool
-
-##engine.sprite_renderer module##
 Bases: pygame.sprite.Sprite
 
-***This class loads the files***
+- This class loads the files 
 	
-	engine.sprite_renderer.Loadable(path, spr, location) 
+		engine.sprite_renderer.Loadable(path, spr, location) 
 	
-	update() 
-		- renders self each frame
+		update() 
+			- renders self each frame
 	
-###engine.sprite_renderer.RendererError###
-
-Bases: exceptions.Exception
-
-###class src.engine.sprite_renderer###
+**engine.sprite_renderer**
 
 	src.engine.sprite_renderer.SpriteRenderer(sc, surface) 
 
@@ -262,19 +237,20 @@ Bases: exceptions.Exception
 	update() 
 		- updates the sprites on the screen
 
-##engine.transform module##
+engine.transform module
+---
 
 	engine.transform.Transform(x=0, y=0, scale=1) 
 	
 Bases: src.engine.component.Component
 
-**This inherits from component.Component and represents the x,y position of a game_object**
+- This inherits from component.Component and represents the x,y position of a game_object
 
-	flip_me() 
-		- Callback to the animator to flip
+		flip_me() 
+			- Callback to the animator to flip
 
-	set_flip(b) 
-		- Sets the value of flip and changes the value of last flip
+		set_flip(b) 
+			- Sets the value of flip and changes the value of last flip
 
-	update() 
-		- udate the transform of this game object
+		update() 
+			- udate the transform of this game object
