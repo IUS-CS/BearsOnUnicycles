@@ -1,8 +1,5 @@
-Scenes package
+Scenes
 -------------------
-
-Submodules
-----------
 
 scenes.arena module
 -----------------------
