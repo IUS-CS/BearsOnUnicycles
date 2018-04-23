@@ -6,30 +6,20 @@ Submodules
 
 scenes.arena module
 -----------------------
-- This module is the main fighting arena for character objects -- Most of the game will be spent in this scene...
+- This module is the main fighting arena for character objects -- Most of the game will be spent in this scene
 
-
-		CHARACTERS = {'Einstein': (game_objects.einstein, game_objects.einstein.Einstein),
-              "Curie": (game_objects.curie, game_objects.curie.Curie),
-              "Darwin": (game_objects.darwin, game_objects.darwin.Darwin),
-              "Hawking": (game_objects.hawking, game_objects.hawking.Hawking),
-              "Newton": (game_objects.newton, game_objects.newton.Newton),
-              "Pythagoras": (game_objects.pythagoras, game_objects.pythagoras.Pythagoras),
-              "Tesla": (game_objects.tesla, game_objects.tesla.Tesla),
-              "NULL": None,
-              }
 
 		Arena(engine.scene.Scene):
-    		- This is the class for the actual fighting arena of the game. Handlesthe logic and input of each character, then calls the appropriate win screen to re-loop the game
+    			- This is the class for the actual fighting arena of the game. Handlesthe logic and input of each character, then calls the appropriate win screen to re-loop the game
        
 		def flip_players(self):
-        	- Orients the players transforms so
+        		- Orients the players transforms so
         that they will always face each other
 
 		def win_condition(self):
 			- Checks to see if anyone won
 
-    	def update(self):
+    		def update(self):
 
 		def get_input(player_num, input):
     		- function that returns the input for each player
