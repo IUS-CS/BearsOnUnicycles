@@ -23,7 +23,10 @@ class StartMenu(engine.scene.Scene):
 
         g = engine.game_object.GameObject("prompt", set_active=True)
         g.add_component(engine.transform.Transform(x=200, y=100))
-        #g.add_component(engine.sprite.Sprite("/src/resources/levels/StartMenu.png", (0, 0), (960, 540), 1))
+        g.add_component(engine.sprite.Sprite("/src/resources/levels/StartMenu.png", (0, 0), (960, 540), 1))
+        g = engine.game_object.GameObject("prompt", set_active=True)
+        g.add_component(engine.transform.Transform(x=200, y=100))
+        g.add_component(engine.sprite.Sprite("/src/resources/menu/Title Screen.png", (0, 0), (512, 256), 1))
         self.add_game_object(g)
         self.manager = manager
 
@@ -41,10 +44,3 @@ class StartMenu(engine.scene.Scene):
                                                                            "/src/resources/menu/characterSelect.png",
                                                                            "box1", "box2"))
             self.manager.change_to_active("CharacterSelect")
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
->>>>>>> 501c3b7... Add additional resource files
-=======
->>>>>>> 501c3b7... Add additional resource files
