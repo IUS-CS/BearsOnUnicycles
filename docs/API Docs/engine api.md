@@ -1,9 +1,10 @@
-#Engine#
+Engine
 ---------------
 
 
-##Submodules##
-###animation_controller module###
+animation_controller module
+---
+
 
 	animation_controller.AnimationPlayer(sc, surface) 
 	game_objects = {}
@@ -18,7 +19,8 @@
 
 	update()
 
-###animation_controller.LoadableAnimator(path, anim, title)####
+animation_controller.LoadableAnimator(path, anim, title)
+---
 
 Bases: pygame.sprite.Group
 
@@ -51,7 +53,10 @@ Bases: pygame.sprite.Group
 - Calls the update method of every member sprite. All arguments that were passed to this method are passed to the Sprite update function.
 
 
-##engine.animator module##
+engine.animator module
+---
+
+
 
 **src.engine.animator.Animation(title, start, count, size, ga)** 
 
@@ -79,7 +84,8 @@ active = False
 
 		title = '' 
 
-##animator.Animator##
+**animator.Animator
+
 
 Bases: src.engine.component.Component
 
@@ -104,11 +110,13 @@ Bases: src.engine.component.Component
 		- 
 	update() 
 
-##animator.AnimatorError##
+**animator.AnimatorError
+
 
 Bases: exceptions.Exception
 
-###engine.collider ###
+**engine.collider
+
 **This defines the collider classes used in the engine**
 	
 	class src.engine.collider.Collider(lowerP, upperP, cfunc)
@@ -121,11 +129,12 @@ Bases: src.engine.component.Component
 	update() 
 
 
-##engine.collision_manager module##
+engine.collision_manager module
+---
 
-###engine.collision_manager.CollisionManager(sc)###
-**This file runs the logic of collisions with collider objects through the pygame engine and updates during the physics cycle**
+**engine.collision_manager.CollisionManager(sc)
 
+..*This file runs the logic of collisions with collider objects through the pygame engine and updates during the physics cycle
 
 	check_collisions(g) 
 		- checks if a game object is colliding with another game object and returns the result of those collisions
