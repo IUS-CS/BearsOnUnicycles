@@ -32,3 +32,6 @@ that will be passed before changes are allowed to be made.
 
 #### Spritesheets:
 - All spritesheets were used as test characters and were used from Diego Sanches, a graphic designer who designed these sprite for Superinteressante, a Brazilian magazine. Diego's work can be found at: diegosanches.com
+
+#### Music loops
+- All game music loops were aquired from OpenGameArt.org. The tracks we used (5 Chiptunes (Action)) were written by Juhani Junkala
