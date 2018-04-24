@@ -23,7 +23,7 @@ class Splash(engine.scene.Scene):
         self.manager = manager
         self.sound = pygame.mixer.Sound(manager.root_path + "/src/resources/menu/bearz.wav")
         self.sound.play()
-        self.sound.fadeout(4000)
+
 
 
     def update(self):

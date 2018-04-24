@@ -6,6 +6,7 @@
 import pygame
 
 from src import engine, input_handler, scenes
+import pygame as pg
 
 
 class StartMenu(engine.scene.Scene):
@@ -15,9 +16,17 @@ class StartMenu(engine.scene.Scene):
 
     def __init__(self, manager):
         super(StartMenu, self).__init__("Start Menu", "/src/resources/menu/Title Screen.png", set_active=True)
+        self.sound = (pg.mixer.Sound(manager.root_path + "/src/resources/menu/Juhani Junkala [Retro Game Music Pack] Level 1.wav"))
+        self.sound.play(25)
+
+
+
         g = engine.game_object.GameObject("prompt", set_active=True)
         g.add_component(engine.transform.Transform(x=200, y=100))
-        #g.add_component(engine.sprite.Sprite("/src/resources/menu/Title Screen.png", (0, 0), (512, 256), 1))
+        g.add_component(engine.sprite.Sprite("/src/resources/levels/StartMenu.png", (0, 0), (960, 540), 1))
+        g = engine.game_object.GameObject("prompt", set_active=True)
+        g.add_component(engine.transform.Transform(x=200, y=100))
+        g.add_component(engine.sprite.Sprite("/src/resources/menu/Title Screen.png", (0, 0), (512, 256), 1))
         self.add_game_object(g)
         self.manager = manager
 
@@ -35,4 +44,3 @@ class StartMenu(engine.scene.Scene):
                                                                            "/src/resources/menu/characterSelect.png",
                                                                            "box1", "box2"))
             self.manager.change_to_active("CharacterSelect")
-

@@ -27,3 +27,8 @@ documentation involved.
 Travis CI will be used for the project to continuously test code
 via unit testing as well as other class-level and build level tests
 that will be passed before changes are allowed to be made.
+
+### Credit:
+
+#### Spritesheets:
+- All spritesheets were used as test characters and were used from Diego Sanches, a graphic designer who designed these sprite for Superinteressante, a Brazilian magazine. Diego's work can be found at: diegosanches.com

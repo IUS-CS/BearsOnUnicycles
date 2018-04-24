@@ -7,7 +7,6 @@ from src import engine, scenes
 
 
 class LoadArena(engine.scene.Scene):
-    
     manager = None
     activated = False  # have we started loading the scene?
 
@@ -17,6 +16,16 @@ class LoadArena(engine.scene.Scene):
         self.manager.add_scene(scenes.arena.Arena(manager, background, player1_name, player2_name, UI))
         g = engine.game_object.GameObject("buffer", set_active=True)
         g.add_component(engine.transform.Transform())
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        g.add_component(engine.sprite.Sprite("/src/resources/levels/LoadingTutorial.png", (0, 50), (800, 500),
+                                             1))  # todo this needs to animate
+=======
+=======
+>>>>>>> 501c3b7... Add additional resource files
+=======
+>>>>>>> 501c3b7... Add additional resource files
         g.add_component(engine.animator.Animator())
         '''           
                         title,       # the title of the animation
@@ -36,6 +45,13 @@ class LoadArena(engine.scene.Scene):
             (3200, 3000),
             1,
         )
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> 501c3b7... Add additional resource files
+=======
+>>>>>>> 501c3b7... Add additional resource files
         self.add_game_object(g)
         self.activated = False
 
